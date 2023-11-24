@@ -7,6 +7,9 @@
 #include <array>
 
 
+class Color;
+
+
 
 class Vector3 {
 public:
@@ -30,6 +33,8 @@ public:
     float length() const;
     float squared_length() const;
     void normalize();
+
+    Color convertToColor();
 
 private:
 

@@ -2,18 +2,26 @@
 
 
 #include <memory>
+#include <limits>
 
 #include "PixelBuffer.h"
 #include "Camera.h"
 #include "Color.h"
 #include "Ray.h"
 #include "Scene.h"
+#include "Shape.h"
 
 
-Color shadeRay(Ray r) {
-    Vector3 unitDirection = unitVector(r.getDirection());
-    float t = 0.5 * unitDirection.y() + 1.0;
-    return (1.0 - t) * Color(1.0, 1.0, 1.0) + t * Color(0.5, 0.7, 1.0);
+Color shadeRay(Ray r, std::shared_ptr<Scene> scene) {
+    HitRecord rec;
+    if(scene->getWorldShape()->hit(r, 0.001, std::numeric_limits<float>::max(), rec)) {
+        return rec.normal.convertToColor();
+    }
+    else {
+        Vector3 unitDirection = unitVector(r.getDirection());
+        float t = 0.5 * unitDirection.y() + 1.0;
+        return (1.0 - t) * Color(1.0, 1.0, 1.0) + t * Color(0.5, 0.7, 1.0);
+    }
 }
 
 
@@ -24,7 +32,7 @@ namespace Plutonium {
 
         buf.forEach([&](int x, int y, Color& currentPixel) {
             Ray r = cam->getRayForPixel(x, y);
-            currentPixel = shadeRay(r);
+            currentPixel = shadeRay(r, scene);
         });
     }
 }

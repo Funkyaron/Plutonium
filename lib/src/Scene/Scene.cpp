@@ -14,3 +14,11 @@ void Scene::setCamera(std::shared_ptr<Camera> newCam) {
 std::shared_ptr<Camera> Scene::getCamera() {
     return cam;
 }
+
+void Scene::setWorldShape(std::shared_ptr<Shape> newWorld) {
+    world = newWorld;
+}
+
+std::shared_ptr<Shape> Scene::getWorldShape() {
+    return world;
+}

@@ -3,6 +3,7 @@
 
 
 #include "Vector3.h"
+#include "Color.h"
 
 #include <math.h>
 
@@ -71,6 +72,10 @@ void Vector3::normalize() {
     numbers[0] *= k;
     numbers[1] *= k;
     numbers[2] *= k;
+}
+
+Color Vector3::convertToColor() {
+    return Color(numbers[0], numbers[1], numbers[2]);
 }
 
 

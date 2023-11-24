@@ -12,14 +12,35 @@
 #include "Renderer.h"
 #include "Scene.h"
 #include "Camera.h"
+#include "Shape.h"
+
+
+
+
+std::shared_ptr<Scene> createScene() {
+    std::shared_ptr<Scene> result = std::make_shared<Scene>();
+
+    std::shared_ptr<Camera> cam = std::make_shared<Camera>();
+    result->setCamera(cam);
+
+    std::shared_ptr<ShapeGroup> world = std::make_shared<ShapeGroup>();
+    std::shared_ptr<Sphere> mySphere = std::make_shared<Sphere>(Vector3(0.0, 0.0, -1.5), 0.5);
+    world->addShape(mySphere);
+    mySphere = std::make_shared<Sphere>(Vector3(0, -100.5, -1), 100);
+    world->addShape(mySphere);
+    mySphere = std::make_shared<Sphere>(Vector3(-1.5, 0.0, -2.0), 0.4);
+    world->addShape(mySphere);
+    result->setWorldShape(world);
+
+    return result;
+}
 
 
 
 
 int main() {
 
-    std::shared_ptr<Scene> myScene = std::make_shared<Scene>();
-    myScene->setCamera(std::make_shared<Camera>());
+    std::shared_ptr<Scene> myScene = createScene();
 
     PixelBuffer myImage;
 
