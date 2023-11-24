@@ -2,41 +2,28 @@
 
 
 #include <algorithm>
+#include <memory>
 
 #define STB_IMAGE_WRITE_IMPLEMENTATION
 #include "stb_image_write.h"
 
 #include "PixelBuffer.h"
 #include "Color.h"
+#include "Renderer.h"
+#include "Scene.h"
+#include "Camera.h"
 
-
-
-void createHelloWorldImage(PixelBuffer& buf) {
-    int nx = buf.getWidth();
-    int ny = buf.getHeight();
-
-    for(int y = 0; y < ny; y++) {
-        for(int x = 0; x < nx; x++) {
-            float r = float(x) / float(nx);
-            float g = float(ny - y - 1) / float(ny);
-            float b = 0.2;
-
-            buf.setPixel(x, y, Color(r, g, b));
-        }
-    }
-}
 
 
 
 int main() {
+
+    std::shared_ptr<Scene> myScene = std::make_shared<Scene>();
+    myScene->setCamera(std::make_shared<Camera>());
+
     PixelBuffer myImage;
 
-    int nx = 200;
-    int ny = 100;
-
-    myImage.init(nx, ny);
-
-    createHelloWorldImage(myImage);
+    Plutonium::renderScene(myScene, myImage);
 
     unsigned char * pixelData = new unsigned char[myImage.getWidth() * myImage.getHeight() * 3];
 
