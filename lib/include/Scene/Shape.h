@@ -11,13 +11,14 @@
 #include "Vector3.h"
 
 class Ray;
-
+class Material;
 
 
 typedef struct {
     float t;
     Vector3 p;
     Vector3 normal;
+    std::shared_ptr<Material> material;
 } HitRecord;
 
 
@@ -34,7 +35,7 @@ private:
 class Sphere : public Shape {
 public:
 
-    Sphere(Vector3 center_, float radius_) : center(center_), radius(radius_) {}
+    Sphere(const Vector3& center_, float radius_, std::shared_ptr<Material> material_) : center(center_), radius(radius_), material(material_) {}
 
     virtual bool hit(Ray r, float t0, float t1, HitRecord& rec) const override;
 
@@ -42,6 +43,8 @@ private:
 
     Vector3 center;
     float radius;
+
+    std::shared_ptr<Material> material;
 
 };
 

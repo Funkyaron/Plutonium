@@ -13,6 +13,7 @@
 #include "Scene.h"
 #include "Camera.h"
 #include "Shape.h"
+#include "Material.h"
 
 
 
@@ -24,11 +25,13 @@ std::shared_ptr<Scene> createScene() {
     result->setCamera(cam);
 
     std::shared_ptr<ShapeGroup> world = std::make_shared<ShapeGroup>();
-    std::shared_ptr<Sphere> mySphere = std::make_shared<Sphere>(Vector3(0.0, 0.0, -1.5), 0.5);
+    std::shared_ptr<Sphere> mySphere = std::make_shared<Sphere>(Vector3(0.0, 0.0, -1.5), 0.5, std::make_shared<Lambert>(Color(0.5, 0.5, 0.5)));
     world->addShape(mySphere);
-    mySphere = std::make_shared<Sphere>(Vector3(0, -100.5, -1), 100);
+    mySphere = std::make_shared<Sphere>(Vector3(0, -100.5, -1), 100, std::make_shared<Lambert>(Color(0.5, 0.8, 0.5)));
     world->addShape(mySphere);
-    mySphere = std::make_shared<Sphere>(Vector3(-1.5, 0.0, -2.0), 0.4);
+    mySphere = std::make_shared<Sphere>(Vector3(-1.5, 0.0, -2.0), 0.4, std::make_shared<Metal>(Color(0.8, 0.5, 0.5), 0.1));
+    world->addShape(mySphere);
+    mySphere = std::make_shared<Sphere>(Vector3(1.1, 0.0, -1.5), 0.5, std::make_shared<Metal>(Color(0.5, 0.5, 0.8), 0.7));
     world->addShape(mySphere);
     result->setWorldShape(world);
 

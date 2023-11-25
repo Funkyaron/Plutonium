@@ -31,7 +31,7 @@ public:
     Vector3& operator/=(const float t);
 
     float length() const;
-    float squared_length() const;
+    float squaredLength() const;
     void normalize();
 
     Color convertToColor();
@@ -54,6 +54,8 @@ float dot(const Vector3& lhs, const Vector3& rhs);
 Vector3 cross(const Vector3& lhs, const Vector3& rhs);
 
 Vector3 unitVector(Vector3 v);
+
+Vector3 reflect(const Vector3& v, const Vector3& n);
 
 
 

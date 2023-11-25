@@ -63,7 +63,7 @@ float Vector3::length() const {
     return sqrt(numbers[0]*numbers[0] + numbers[1]*numbers[1] + numbers[2]*numbers[2]);
 }
 
-float Vector3::squared_length() const {
+float Vector3::squaredLength() const {
     return numbers[0]*numbers[0] + numbers[1]*numbers[1] + numbers[2]*numbers[2];
 }
 
@@ -111,4 +111,8 @@ Vector3 cross(const Vector3& lhs, const Vector3& rhs) {
 
 Vector3 unitVector(Vector3 v) {
     return v / v.length();
+}
+
+Vector3 reflect(const Vector3& v, const Vector3& n) {
+    return v - 2.0 * dot(v, n) * n;
 }

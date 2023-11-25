@@ -10,12 +10,20 @@
 #include "Ray.h"
 #include "Scene.h"
 #include "Shape.h"
+#include "Material.h"
 
 
-Color shadeRay(Ray r, std::shared_ptr<Scene> scene) {
+Color shadeRay(Ray r, std::shared_ptr<Scene> scene, int depth) {
     HitRecord rec;
     if(scene->getWorldShape()->hit(r, 0.001, std::numeric_limits<float>::max(), rec)) {
-        return rec.normal.convertToColor();
+        Ray scattered;
+        Color attenuation;
+        if(depth < 50 && rec.material->scatter(r, rec, attenuation, scattered)) {
+            return attenuation * shadeRay(scattered, scene, depth + 1);
+        }
+        else {
+            return Color(0.0, 0.0, 0.0);
+        }
     }
     else {
         Vector3 unitDirection = unitVector(r.getDirection());
@@ -36,7 +44,7 @@ namespace Plutonium {
             Color col(0.0, 0.0, 0.0);
             for(int s = 0; s < nsamples; s++) {
                 Ray r = cam->getRayForPixel(x, y);
-                col += shadeRay(r, scene);
+                col += shadeRay(r, scene, 0);
             }
             currentPixel = col / float(nsamples);
         });
