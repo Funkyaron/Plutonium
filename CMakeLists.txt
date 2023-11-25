@@ -11,6 +11,7 @@ set (CMAKE_CXX_STANDARD 20)
 include_directories(lib/include/Core)
 include_directories(lib/include/Renderer)
 include_directories(lib/include/Scene)
+include_directories(lib/include/Utility)
 include_directories(lib-3rd-party/stb_image)
 
 
@@ -27,6 +28,8 @@ add_library(PlutoniumCore SHARED
 
     lib/src/Scene/Shapes/ShapeGroup.cpp
     lib/src/Scene/Shapes/Sphere.cpp
+
+    lib/src/Utility/Utility.cpp
 )
 
 

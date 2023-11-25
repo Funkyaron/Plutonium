@@ -1,0 +1,9 @@
+
+
+
+
+
+
+namespace Plutonium {
+    float getRandomNumber();
+}

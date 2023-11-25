@@ -30,9 +30,15 @@ namespace Plutonium {
         auto cam = scene->getCamera();
         buf.init(cam->getPixelWidth(), cam->getPixelHeight());
 
+        int nsamples = 100;
+
         buf.forEach([&](int x, int y, Color& currentPixel) {
-            Ray r = cam->getRayForPixel(x, y);
-            currentPixel = shadeRay(r, scene);
+            Color col(0.0, 0.0, 0.0);
+            for(int s = 0; s < nsamples; s++) {
+                Ray r = cam->getRayForPixel(x, y);
+                col += shadeRay(r, scene);
+            }
+            currentPixel = col / float(nsamples);
         });
     }
 }

@@ -4,6 +4,7 @@
 
 #include "Camera.h"
 #include "Ray.h"
+#include "Utility.h"
 
 
 
@@ -26,11 +27,10 @@ int Camera::getPixelHeight() const {
 }
 
 Ray Camera::getRayForPixel(int x, int y) const {
-    float u = float(x) / float(pixelWidth);
-    float v = float(pixelHeight - y) / float(pixelHeight);
+    float u = (float(x) + Plutonium::getRandomNumber()) / float(pixelWidth);
+    float v = (float(pixelHeight - y - 1) + Plutonium::getRandomNumber()) / float(pixelHeight);
 
     Vector3 direction = lowerLeftCorner + u * horizontal + v * vertical;
-    // direction = direction - origin, technically speaking
 
     return Ray(origin, direction);
 }
