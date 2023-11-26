@@ -38,7 +38,7 @@ namespace Plutonium {
         auto cam = scene->getCamera();
         buf.init(cam->getPixelWidth(), cam->getPixelHeight());
 
-        int nsamples = 100;
+        int nsamples = 200;
 
         buf.forEach([&](int x, int y, Color& currentPixel) {
             Color col(0.0, 0.0, 0.0);

@@ -23,4 +23,13 @@ namespace Plutonium {
         } while(p.squaredLength() >= 1.0);
         return p;
     }
+
+    Vector3 randomInUnitDisk() {
+        Vector3 p;
+        do {
+            p = 2.0 * Vector3(getRandomNumber(), getRandomNumber(), 0.0) - Vector3(1.0, 1.0, 0.0);
+        } while(dot(p, p) >= 1.0);
+        return p;
+    }
 }
+

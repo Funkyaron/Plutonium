@@ -56,6 +56,7 @@ Vector3 cross(const Vector3& lhs, const Vector3& rhs);
 Vector3 unitVector(Vector3 v);
 
 Vector3 reflect(const Vector3& v, const Vector3& n);
+bool refract(const Vector3& v, const Vector3& n, float ni_over_nt, Vector3& refracted);
 
 
 

@@ -52,6 +52,22 @@ private:
 };
 
 
+class Dielectric : public Material {
+public:
+
+    Dielectric(float refractionIndex_) : refractionIndex(refractionIndex_) {}
+
+    virtual bool scatter(const Ray& rIn, const HitRecord& rec, Color& attenuation, Ray& scattered) const override;
+
+private:
+
+    float schlick(float cosine, float refractionIndex) const;
+
+    float refractionIndex;
+
+};
+
+
 
 
 

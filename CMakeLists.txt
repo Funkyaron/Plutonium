@@ -25,6 +25,7 @@ add_library(PlutoniumCore SHARED
 
     lib/src/Scene/Materials/Lambert.cpp
     lib/src/Scene/Materials/Metal.cpp
+    lib/src/Scene/Materials/Dielectric.cpp
 
     lib/src/Scene/Shapes/ShapeGroup.cpp
     lib/src/Scene/Shapes/Sphere.cpp
