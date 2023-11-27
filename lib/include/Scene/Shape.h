@@ -9,6 +9,7 @@
 #include <vector>
 
 #include "Vector3.h"
+#include "Matrix4.h"
 
 class Ray;
 class Material;
@@ -62,6 +63,21 @@ public:
 private:
 
     std::vector<std::shared_ptr<Shape> > shapes;
+
+};
+
+
+class SphereInstance : public Shape {
+public:
+
+    SphereInstance();
+
+    virtual bool hit(Ray r, float t0, float t1, HitRecord& rec) const override;
+
+private:
+
+    std::shared_ptr<Sphere> mSphere;
+    Matrix4 transformMatrix;
 
 };
 

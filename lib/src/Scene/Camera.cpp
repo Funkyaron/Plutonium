@@ -91,7 +91,7 @@ void Camera::calculatePixelPlane() {
 
     lensRadius = aperture / 2.0;
 
-    float theta = verticalFOV * std::numbers::pi / 180;
+    float theta = verticalFOV * std::numbers::pi / 180.0;
     float halfHeight = tan(theta / 2.0);
     float halfWidth = float(pixelWidth) / float(pixelHeight) * halfHeight;
 

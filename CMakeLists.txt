@@ -17,9 +17,12 @@ include_directories(lib-3rd-party/stb_image)
 
 add_library(PlutoniumCore SHARED
     lib/src/Core/Color.cpp
+    lib/src/Core/Matrix3.cpp
+    lib/src/Core/Matrix4.cpp
     lib/src/Core/PixelBuffer.cpp
     lib/src/Core/Ray.cpp
     lib/src/Core/Vector3.cpp
+    lib/src/Core/Vector4.cpp
 
     lib/src/Renderer/Renderer.cpp
 
@@ -29,6 +32,7 @@ add_library(PlutoniumCore SHARED
 
     lib/src/Scene/Shapes/ShapeGroup.cpp
     lib/src/Scene/Shapes/Sphere.cpp
+    lib/src/Scene/Shapes/SphereInstance.cpp
 
     lib/src/Scene/Camera.cpp
     lib/src/Scene/Scene.cpp
