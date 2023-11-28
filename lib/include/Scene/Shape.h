@@ -9,10 +9,10 @@
 #include <vector>
 
 #include "Vector3.h"
-#include "Matrix4.h"
 
 class Ray;
 class Material;
+class Transform;
 
 
 typedef struct {
@@ -33,18 +33,35 @@ private:
 };
 
 
-class Sphere : public Shape {
+class Geometry : public Shape {
 public:
-
-    Sphere(const Vector3& center_, float radius_, std::shared_ptr<Material> material_) : center(center_), radius(radius_), material(material_) {}
-
-    virtual bool hit(Ray r, float t0, float t1, HitRecord& rec) const override;
 
 private:
 
-    Vector3 center;
-    float radius;
+};
 
+
+class GeometryInstance : public Shape {
+public:
+
+    GeometryInstance();
+    GeometryInstance(std::shared_ptr<Geometry> geometry_, std::shared_ptr<Transform> transform_, std::shared_ptr<Material> material_);
+
+    virtual bool hit(Ray r, float t0, float t1, HitRecord& rec) const override;
+
+    void setGeometry(std::shared_ptr<Geometry> geometry_);
+    std::shared_ptr<Geometry> getGeometry() const;
+
+    void setTransform(std::shared_ptr<Transform> transform_);
+    std::shared_ptr<Transform> getTransform() const;
+
+    void setMaterial(std::shared_ptr<Material> material_);
+    std::shared_ptr<Material> getMaterial() const;
+
+private:
+
+    std::shared_ptr<Geometry> geometry;
+    std::shared_ptr<Transform> transform;
     std::shared_ptr<Material> material;
 
 };
@@ -67,17 +84,14 @@ private:
 };
 
 
-class SphereInstance : public Shape {
+class Sphere : public Geometry {
 public:
 
-    SphereInstance();
+    Sphere() {}
 
     virtual bool hit(Ray r, float t0, float t1, HitRecord& rec) const override;
 
 private:
-
-    std::shared_ptr<Sphere> mSphere;
-    Matrix4 transformMatrix;
 
 };
 

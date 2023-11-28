@@ -21,6 +21,7 @@ add_library(PlutoniumCore SHARED
     lib/src/Core/Matrix4.cpp
     lib/src/Core/PixelBuffer.cpp
     lib/src/Core/Ray.cpp
+    lib/src/Core/Transform.cpp
     lib/src/Core/Vector3.cpp
     lib/src/Core/Vector4.cpp
 
@@ -30,9 +31,9 @@ add_library(PlutoniumCore SHARED
     lib/src/Scene/Materials/Metal.cpp
     lib/src/Scene/Materials/Dielectric.cpp
 
+    lib/src/Scene/Shapes/GeometryInstance.cpp
     lib/src/Scene/Shapes/ShapeGroup.cpp
     lib/src/Scene/Shapes/Sphere.cpp
-    lib/src/Scene/Shapes/SphereInstance.cpp
 
     lib/src/Scene/Camera.cpp
     lib/src/Scene/Scene.cpp

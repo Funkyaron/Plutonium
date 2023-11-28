@@ -20,18 +20,33 @@ public:
     static Vector4 position(Vector3 v3);
     static Vector4 direction(Vector3 v3);
 
-    operator Vector3() const;
-
     float x() const;
     float y() const;
     float z() const;
     float w() const;
+
+    const Vector4& operator+() const;
+    Vector4 operator-() const;
+
+    Vector4& operator+=(const Vector4& other);
+    Vector4& operator-=(const Vector4& other);
+    
+    Vector4& operator*=(const float t);
+    Vector4& operator/=(const float t);
 
 private:
 
     std::array<float, 4> numbers;
 
 };
+
+
+Vector4 operator+(const Vector4& lhs, const Vector4& rhs);
+Vector4 operator-(const Vector4& lhs, const Vector4& rhs);
+
+Vector4 operator*(float t, const Vector4& v);
+Vector4 operator*(const Vector4& v, float t);
+Vector4 operator/(const Vector4& v, float t);
 
 
 float dot(const Vector4& lhs, const Vector4& rhs);
