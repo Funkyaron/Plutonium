@@ -11,11 +11,20 @@ class Vector3;
 class Vector4;
 
 
+
 class Matrix4 {
 public:
 
+    // Rule of 5
     Matrix4();
-    Matrix4(const Matrix3& rotAndScale, const Vector3& translation);
+    ~Matrix4();
+    Matrix4(const Matrix4& other);
+    Matrix4(Matrix4&& other);
+    Matrix4& operator=(const Matrix4& other);
+    Matrix4& operator=(Matrix4&& other);
+
+    float* getContentRawPtr() const;
+    void setContentRawPtr(float* newPtr);
 
     static Matrix4 identity();
 
@@ -47,19 +56,27 @@ public:
     void set32(float f);
     void set33(float f);
 
-    Vector4 getRow0() const;
-    Vector4 getRow1() const;
-    Vector4 getRow2() const;
-    Vector4 getRow3() const;
+    float get00() const;
+    float get01() const;
+    float get02() const;
+    float get03() const;
+    float get10() const;
+    float get11() const;
+    float get12() const;
+    float get13() const;
+    float get20() const;
+    float get21() const;
+    float get22() const;
+    float get23() const;
+    float get30() const;
+    float get31() const;
+    float get32() const;
+    float get33() const;
 
-    Vector4 getColumn0() const;
-    Vector4 getColumn1() const;
-    Vector4 getColumn2() const;
-    Vector4 getColumn3() const;
 
 private:
 
-    float m00, m01, m02, m03, m10, m11, m12, m13, m20, m21, m22, m23, m30, m31, m32, m33;
+    float* content;
 
 };
 
