@@ -3,6 +3,8 @@
 
 #include <memory>
 #include <limits>
+#include <chrono>
+#include <iostream>
 
 #include "PixelBuffer.h"
 #include "Camera.h"
@@ -35,10 +37,13 @@ Color shadeRay(Ray r, std::shared_ptr<Scene> scene, int depth) {
 
 namespace Plutonium {
     void renderScene(std::shared_ptr<Scene> scene, PixelBuffer& buf) {
+
+        auto start = std::chrono::high_resolution_clock::now();
+
         auto cam = scene->getCamera();
         buf.init(cam->getPixelWidth(), cam->getPixelHeight());
 
-        int nsamples = 10;
+        int nsamples = 100;
 
         buf.forEach([&](int x, int y, Color& currentPixel) {
             Color col(0.0, 0.0, 0.0);
@@ -48,5 +53,13 @@ namespace Plutonium {
             }
             currentPixel = col / float(nsamples);
         });
+
+        auto end = std::chrono::high_resolution_clock::now();
+
+        const std::chrono::duration<double, std::ratio<1, 1>> timeSeconds = end - start;
+        const std::chrono::duration<double, std::ratio<60, 1>> timeMinutes = end - start;
+
+        // auto duration = std::chrono::duration_cast<std::chrono::seconds>(end - start);
+        std::cout << "Render time: " << timeSeconds << " or " << timeMinutes << "\n";
     }
 }
