@@ -25,31 +25,31 @@ Matrix4::~Matrix4() {
 
 Matrix4::Matrix4(const Matrix4& other) {
     content = new float[16];
-    std::memcpy(content, other.getContentRawPtr(), 16 * sizeof(float));
+    other.copyContent(content);
 }
 
 Matrix4::Matrix4(Matrix4&& other) {
-    content = other.getContentRawPtr();
-    other.setContentRawPtr(nullptr);
+    other.moveContent(&content);
 }
 
 Matrix4& Matrix4::operator=(const Matrix4& other) {
-    return *this = Matrix4(other);
+    other.copyContent(content);
+    return *this;
 }
 
 Matrix4& Matrix4::operator=(Matrix4&& other) {
-    content = other.getContentRawPtr();
-    other.setContentRawPtr(nullptr);
+    other.moveContent(&content);
     return *this;
 }
 
 
-float* Matrix4::getContentRawPtr() const {
-    return content;
+void Matrix4::copyContent(float* dest) const {
+    std::memcpy(dest, content, 16 * sizeof(float));
 }
 
-void Matrix4::setContentRawPtr(float* newPtr) {
-    content = newPtr;
+void Matrix4::moveContent(float** dest) {
+    *dest = content;
+    content = nullptr;
 }
 
 

@@ -23,8 +23,8 @@ public:
     Matrix4& operator=(const Matrix4& other);
     Matrix4& operator=(Matrix4&& other);
 
-    float* getContentRawPtr() const;
-    void setContentRawPtr(float* newPtr);
+    void copyContent(float* dest) const;
+    void moveContent(float** dest);
 
     static Matrix4 identity();
 
