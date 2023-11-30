@@ -31,10 +31,12 @@ add_library(PlutoniumCore SHARED
     lib/src/Scene/Materials/Metal.cpp
     lib/src/Scene/Materials/Dielectric.cpp
 
+    lib/src/Scene/Shapes/BVHNode.cpp
     lib/src/Scene/Shapes/GeometryInstance.cpp
     lib/src/Scene/Shapes/ShapeGroup.cpp
     lib/src/Scene/Shapes/Sphere.cpp
 
+    lib/src/Scene/BoundingBox.cpp
     lib/src/Scene/Camera.cpp
     lib/src/Scene/Scene.cpp
 

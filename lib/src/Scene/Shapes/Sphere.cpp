@@ -5,6 +5,7 @@
 
 #include "Shape.h"
 #include "Ray.h"
+#include "BoundingBox.h"
 
 
 
@@ -31,4 +32,12 @@ bool Sphere::hit(Ray r, float t0, float t1, HitRecord& rec) const {
         }
     }
     return false;
+}
+
+BoundingBox Sphere::createBoundingBox() {
+    return BoundingBox(-1.0, 1.0, -1.0, 1.0, -1.0, 1.0);
+}
+
+Vector4 Sphere::getCenter() {
+    return Vector4(0.0, 0.0, 0.0, 1.0);
 }

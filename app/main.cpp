@@ -26,7 +26,7 @@ std::shared_ptr<Scene> createScene() {
     std::shared_ptr<Scene> result = std::make_shared<Scene>();
 
     std::shared_ptr<Camera> cam = std::make_shared<Camera>();
-    cam->setResolution(800, 600);
+    cam->setResolution(200, 150);
     cam->setLookFrom(Vector3(8.0, 2.0, 3.0));
     cam->setLookAt(Vector3(0.0, 1.0, 0.0));
     cam->setVerticalUp(Vector3(0.0, 1.0, 0.0));
@@ -98,7 +98,7 @@ std::shared_ptr<Scene> createScene() {
     bigSphere3->setMaterial(std::make_shared<Metal>(Color(0.7, 0.6, 0.5), 0.0));
     world->addShape(bigSphere3);
 
-    result->setWorldShape(world);
+    result->setShapeGroup(world);
 
     return result;
 }
@@ -132,7 +132,7 @@ std::shared_ptr<Scene> createScene() {
 //     std::shared_ptr<ShapeGroup> world = std::make_shared<ShapeGroup>();
 //     world->addShape(sphere1);
 //     world->addShape(ellipsoid1);
-//     result->setWorldShape(world);
+//     result->setShapeGroup(world);
 
 //     return result;
 // }

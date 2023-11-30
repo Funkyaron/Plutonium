@@ -15,10 +15,10 @@ std::shared_ptr<Camera> Scene::getCamera() {
     return cam;
 }
 
-void Scene::setWorldShape(std::shared_ptr<Shape> newWorld) {
-    world = newWorld;
+void Scene::setShapeGroup(std::shared_ptr<ShapeGroup> group) {
+    shapeGroup = group;
 }
 
-std::shared_ptr<Shape> Scene::getWorldShape() {
-    return world;
+std::shared_ptr<ShapeGroup> Scene::getShapeGroup() {
+    return shapeGroup;
 }
