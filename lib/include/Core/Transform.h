@@ -6,7 +6,7 @@
 #define PLUTONIUM_TRANSFORM_H
 
 
-class Matrix4;
+#include "Matrix4.h"
 
 
 class Transform {
@@ -35,6 +35,12 @@ private:
     float locationX, locationY, locationZ;
     float rotationX, rotationY, rotationZ; // We only support rotation mode XYZ Euler for now
     float scaleX, scaleY, scaleZ;
+
+    Matrix4 inverseMatrix;
+    Matrix4 matrix;
+
+    bool inverseMatrixCalculated;
+    bool matrixCalculated;
 
 };
 
