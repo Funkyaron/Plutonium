@@ -6,7 +6,6 @@
 #define PLUTONIUM_MATRIX4_h
 
 
-class Matrix3;
 class Vector3;
 class Vector4;
 

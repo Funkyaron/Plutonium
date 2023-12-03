@@ -17,8 +17,8 @@ public:
     Vector4() {}
     Vector4(float x, float y, float z, float w) : numbers({x, y, z, w}) {}
 
-    static Vector4 position(Vector3 v3);
-    static Vector4 direction(Vector3 v3);
+    static Vector4 position(const Vector3& v3);
+    static Vector4 direction(const Vector3& v3);
 
     float x() const;
     float y() const;

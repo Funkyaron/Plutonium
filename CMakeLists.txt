@@ -17,7 +17,6 @@ include_directories(lib-3rd-party/stb_image)
 
 add_library(PlutoniumCore SHARED
     lib/src/Core/Color.cpp
-    lib/src/Core/Matrix3.cpp
     lib/src/Core/Matrix4.cpp
     lib/src/Core/PixelBuffer.cpp
     lib/src/Core/Ray.cpp

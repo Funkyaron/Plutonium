@@ -27,8 +27,8 @@ public:
     void setScaleZ(float scale);
     void setUniformScale(float scale);
 
-    Matrix4 getAsMatrix4();
-    Matrix4 getInverseAsMatrix4();
+    Matrix4 getAsMatrix4() const;
+    Matrix4 getInverseAsMatrix4() const;
 
 private:
 
@@ -36,11 +36,11 @@ private:
     float rotationX, rotationY, rotationZ; // We only support rotation mode XYZ Euler for now
     float scaleX, scaleY, scaleZ;
 
-    Matrix4 inverseMatrix;
     Matrix4 matrix;
+    Matrix4 inverseMatrix;
 
-    bool inverseMatrixCalculated;
-    bool matrixCalculated;
+    void calculateMatrix();
+    void calculateInverseMatrix();
 
 };
 

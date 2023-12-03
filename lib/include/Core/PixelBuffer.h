@@ -24,6 +24,7 @@ public:
     Color getPixel(int x, int y);
 
     void forEach(std::function<void(int x, int y, Color& currentPixel)> pixelCallback);
+    void forEachConcurrent(std::function<void(int x, int y, Color& currentPixel)> pixelCallback);
 
 private:
 

@@ -8,11 +8,11 @@
 
 
 
-Vector4 Vector4::position(Vector3 v3) {
+Vector4 Vector4::position(const Vector3& v3) {
     return Vector4(v3.x(), v3.y(), v3.z(), 1.0);
 }
 
-Vector4 Vector4::direction(Vector3 v3) {
+Vector4 Vector4::direction(const Vector3& v3) {
     return Vector4(v3.x(), v3.y(), v3.z(), 0.0);
 }
 
