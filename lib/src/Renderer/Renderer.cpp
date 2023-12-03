@@ -47,7 +47,7 @@ namespace Plutonium {
 
         int nsamples = 10;
 
-        buf.forEach([&](int x, int y, Color& currentPixel) {
+        buf.forEachConcurrent([&](int x, int y, Color& currentPixel) {
             Color col(0.0, 0.0, 0.0);
             for(int s = 0; s < nsamples; s++) {
                 Ray r = cam->getRayForPixel(x, y);

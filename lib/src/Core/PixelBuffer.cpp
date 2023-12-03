@@ -1,6 +1,8 @@
 
 
 
+#include <thread>
+
 
 #include "PixelBuffer.h"
 
@@ -58,9 +60,38 @@ void PixelBuffer::forEach(std::function<void(int x, int y, Color& currentPixel)>
     if(isInitialised == false) {
         return;
     }
+
     for(int currentY = 0; currentY < height; currentY++) {
         for(int currentX = 0; currentX < width; currentX++) {
             pixelCallback(currentX, currentY, content[currentX + width * currentY]);
         }
+    }
+
+
+}
+
+void PixelBuffer::forEachConcurrent(std::function<void(int x, int y, Color& currentPixel)> pixelCallback) {
+    int numThreads = 6;
+
+    std::thread myThreads[numThreads];
+    std::pair<int, int> bounds[numThreads];
+
+    for(int thr = 0; thr < numThreads; thr++) {
+        bounds[thr].first = (height * thr) / numThreads;
+        bounds[thr].second = (height * (thr + 1)) / numThreads;
+    }
+
+    for(int thr = 0; thr < numThreads; thr++) {
+        myThreads[thr] = std::thread([&](int lowerBound, int upperBound) {
+            for(int currentY = lowerBound; currentY < upperBound; currentY++) {
+                for(int currentX = 0; currentX < width; currentX++) {
+                    pixelCallback(currentX, currentY, content[currentX + width * currentY]);
+                }
+            }
+        }, bounds[thr].first, bounds[thr].second);
+    }
+
+    for(auto& currentThread : myThreads) {
+        currentThread.join();
     }
 }
