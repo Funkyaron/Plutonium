@@ -15,13 +15,13 @@
 #include "Material.h"
 
 
-Color shadeRay(Ray r, std::shared_ptr<Scene> scene, int depth) {
+Color shadeRay(Ray r, std::shared_ptr<BVHNode> bvhRoot, int depth) {
     HitRecord rec;
-    if(scene->getWorldShape()->hit(r, 0.001, std::numeric_limits<float>::max(), rec)) {
+    if(bvhRoot->hit(r, 0.001, std::numeric_limits<float>::max(), rec)) {
         Ray scattered;
         Color attenuation;
         if(depth < 50 && rec.material->scatter(r, rec, attenuation, scattered)) {
-            return attenuation * shadeRay(scattered, scene, depth + 1);
+            return attenuation * shadeRay(scattered, bvhRoot, depth + 1);
         }
         else {
             return Color(0.0, 0.0, 0.0);
@@ -43,13 +43,15 @@ namespace Plutonium {
         auto cam = scene->getCamera();
         buf.init(cam->getPixelWidth(), cam->getPixelHeight());
 
-        int nsamples = 200;
+        std::shared_ptr<BVHNode> bvhRoot = BVHNode::create(scene->getShapeGroup()->getShapes(), 0);
+
+        int nsamples = 10;
 
         buf.forEach([&](int x, int y, Color& currentPixel) {
             Color col(0.0, 0.0, 0.0);
             for(int s = 0; s < nsamples; s++) {
                 Ray r = cam->getRayForPixel(x, y);
-                col += shadeRay(r, scene, 0);
+                col += shadeRay(r, bvhRoot, 0);
             }
             currentPixel = col / float(nsamples);
         });
