@@ -129,6 +129,63 @@ private:
 };
 
 
+class Triangle : public Geometry {
+public:
+
+    Triangle(const Vector3& p1_, const Vector3& p2_, const Vector3& p3_) : p1(Vector4::position(p1_)), p2(Vector4::position(p2_)), p3(Vector4::position(p3_)) {}
+
+    virtual bool hit(Ray r, float t0, float t1, HitRecord& rec) const override;
+    virtual BoundingBox createBoundingBox() override;
+    virtual Vector4 getCenter() override;
+
+private:
+
+    Vector4 p1, p2, p3;
+
+};
+
+
+class Rectangle : public Geometry {
+public:
+
+    Rectangle() {}
+
+    virtual bool hit(Ray r, float t0, float t1, HitRecord& rec) const override;
+    virtual BoundingBox createBoundingBox() override;
+    virtual Vector4 getCenter() override;
+
+private:
+
+};
+
+
+enum class MeshType {
+    Cube
+};
+
+
+class TriangleMesh : public Geometry {
+protected:
+    bool hitTriangle(Ray r, float t0, float t1, HitRecord& rec, const Vector4& p1, const Vector4& p2, const Vector4& p3) const;
+};
+
+
+class IndexedTriangleMesh : public TriangleMesh {
+public:
+
+    IndexedTriangleMesh(MeshType type);
+
+    virtual bool hit(Ray r, float t0, float t1, HitRecord& rec) const override;
+    virtual BoundingBox createBoundingBox() override;
+    virtual Vector4 getCenter() override;
+
+private:
+
+    std::vector<std::array<int, 3> > triangleIndices;
+    std::vector<Vector4> vertices;
+
+};
+
 
 
 #endif

@@ -74,6 +74,10 @@ Vector4& Vector4::operator/=(const float t) {
     return *this;
 }
 
+Vector4::operator Vector3() {
+    return Vector3(numbers[0], numbers[1], numbers[2]);
+}
+
 
 Vector4 operator+(const Vector4& lhs, const Vector4& rhs) {
     return Vector4(lhs.x() + rhs.x(), lhs.y() + rhs.y(), lhs.z() + rhs.z(), lhs.w() + rhs.w());

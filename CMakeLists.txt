@@ -32,8 +32,12 @@ add_library(PlutoniumCore SHARED
 
     lib/src/Scene/Shapes/BVHNode.cpp
     lib/src/Scene/Shapes/GeometryInstance.cpp
+    lib/src/Scene/Shapes/IndexedTriangleMesh.cpp
+    lib/src/Scene/Shapes/Rectangle.cpp
     lib/src/Scene/Shapes/ShapeGroup.cpp
     lib/src/Scene/Shapes/Sphere.cpp
+    lib/src/Scene/Shapes/Triangle.cpp
+    lib/src/Scene/Shapes/TriangleMesh.cpp
 
     lib/src/Scene/BoundingBox.cpp
     lib/src/Scene/Camera.cpp
