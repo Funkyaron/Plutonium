@@ -16,6 +16,7 @@
 #include "Material.h"
 #include "Utility.h"
 #include "Transform.h"
+#include "Mesh.h"
 
 
 
@@ -35,12 +36,12 @@
 //     cam->setFocusDist((Vector3(8.0, 2.0, 2.0) - Vector3(0.0, 1.0, 0.0)).length());
 //     result->setCamera(cam);
 
-//     std::shared_ptr<Geometry> sphereGeometry = std::make_shared<Sphere>();
+//     std::shared_ptr<Shape> sphereShape = std::make_shared<Sphere>();
 
 //     std::shared_ptr<ShapeGroup> world = std::make_shared<ShapeGroup>();
 
-//     std::shared_ptr<GeometryInstance> floorSphere = std::make_shared<GeometryInstance>();
-//     floorSphere->setGeometry(sphereGeometry);
+//     std::shared_ptr<ShapeInstance> floorSphere = std::make_shared<ShapeInstance>();
+//     floorSphere->setShape(sphereShape);
 //     floorSphere->getTransform()->setLocationY(-1000.0);
 //     floorSphere->getTransform()->setUniformScale(1000.0);
 //     floorSphere->setMaterial(std::make_shared<Lambert>(Color(0.5, 0.5, 0.5)));
@@ -52,8 +53,8 @@
 //             float chooseMat = Plutonium::getRandomNumber();
 //             Vector3 center(a + 0.9 * Plutonium::getRandomNumber(), 0.3, b + 0.9 * Plutonium::getRandomNumber());
 //             if((center - Vector3(4.0, 0.2, 0.0)).length() > 0.9) {
-//                 std::shared_ptr<GeometryInstance> currentSphere = std::make_shared<GeometryInstance>();
-//                 currentSphere->setGeometry(sphereGeometry);
+//                 std::shared_ptr<ShapeInstance> currentSphere = std::make_shared<ShapeInstance>();
+//                 currentSphere->setShape(sphereShape);
 //                 currentSphere->getTransform()->setLocationX(center.x());
 //                 currentSphere->getTransform()->setLocationY(center.y());
 //                 currentSphere->getTransform()->setLocationZ(center.z());
@@ -78,21 +79,21 @@
 //         }
 //     }
 
-//     std::shared_ptr<GeometryInstance> bigSphere1 = std::make_shared<GeometryInstance>();
-//     bigSphere1->setGeometry(sphereGeometry);
+//     std::shared_ptr<ShapeInstance> bigSphere1 = std::make_shared<ShapeInstance>();
+//     bigSphere1->setShape(sphereShape);
 //     bigSphere1->getTransform()->setLocationY(1.0);
 //     bigSphere1->setMaterial(std::make_shared<Dielectric>(1.5));
 //     world->addShape(bigSphere1);
 
-//     std::shared_ptr<GeometryInstance> bigSphere2 = std::make_shared<GeometryInstance>();
-//     bigSphere2->setGeometry(sphereGeometry);
+//     std::shared_ptr<ShapeInstance> bigSphere2 = std::make_shared<ShapeInstance>();
+//     bigSphere2->setShape(sphereShape);
 //     bigSphere2->getTransform()->setLocationX(-4.0);
 //     bigSphere2->getTransform()->setLocationY(1.0);
 //     bigSphere2->setMaterial(std::make_shared<Lambert>(Color(0.4, 0.2, 0.1)));
 //     world->addShape(bigSphere2);
 
-//     std::shared_ptr<GeometryInstance> bigSphere3 = std::make_shared<GeometryInstance>();
-//     bigSphere3->setGeometry(sphereGeometry);
+//     std::shared_ptr<ShapeInstance> bigSphere3 = std::make_shared<ShapeInstance>();
+//     bigSphere3->setShape(sphereShape);
 //     bigSphere3->getTransform()->setLocationX(4.0);
 //     bigSphere3->getTransform()->setLocationY(1.0);
 //     bigSphere3->setMaterial(std::make_shared<Metal>(Color(0.7, 0.6, 0.5), 0.0));
@@ -113,17 +114,17 @@
 //     result->setCamera(cam);
 
 
-//     std::shared_ptr<Geometry> sphereGeometry = std::make_shared<Sphere>();
+//     std::shared_ptr<Shape> sphereShape = std::make_shared<Sphere>();
 
-//     std::shared_ptr<GeometryInstance> sphere1 = std::make_shared<GeometryInstance>();
-//     sphere1->setGeometry(sphereGeometry);
+//     std::shared_ptr<ShapeInstance> sphere1 = std::make_shared<ShapeInstance>();
+//     sphere1->setShape(sphereShape);
 //     sphere1->getTransform()->setLocationX(-2.2);
 //     sphere1->getTransform()->setLocationZ(1.0);
 //     sphere1->getTransform()->setUniformScale(0.8);
 //     sphere1->setMaterial(std::make_shared<Lambert>(Color(0.0, 1.0, 0.0)));
 
-//     std::shared_ptr<GeometryInstance> ellipsoid1 = std::make_shared<GeometryInstance>();
-//     ellipsoid1->setGeometry(sphereGeometry);
+//     std::shared_ptr<ShapeInstance> ellipsoid1 = std::make_shared<ShapeInstance>();
+//     ellipsoid1->setShape(sphereShape);
 //     ellipsoid1->getTransform()->setLocationX(2.0);
 //     ellipsoid1->getTransform()->setRotationZ(45.0);
 //     ellipsoid1->getTransform()->setScaleX(2.0);
@@ -150,21 +151,21 @@
 //     std::shared_ptr<Triangle> tri2 = std::make_shared<Triangle>(Vector3(0.0, 0.5, 0.0), Vector3(0.5, -0.5, 0.2), Vector3(0.4, 0.6, 0.3));
 //     std::shared_ptr<Rectangle> rect = std::make_shared<Rectangle>();
 
-//     std::shared_ptr<GeometryInstance> triInst1 = std::make_shared<GeometryInstance>();
-//     triInst1->setGeometry(tri1);
+//     std::shared_ptr<ShapeInstance> triInst1 = std::make_shared<ShapeInstance>();
+//     triInst1->setShape(tri1);
 //     triInst1->setMaterial(std::make_shared<Lambert>(Color(1.0, 0.0, 0.0)));
     
-//     std::shared_ptr<GeometryInstance> triInst2 = std::make_shared<GeometryInstance>();
-//     triInst2->setGeometry(tri2);
+//     std::shared_ptr<ShapeInstance> triInst2 = std::make_shared<ShapeInstance>();
+//     triInst2->setShape(tri2);
 //     triInst2->setMaterial(std::make_shared<Metal>(Color(0.8, 0.8, 0.8), 0.1));
     
-//     std::shared_ptr<GeometryInstance> triInst3 = std::make_shared<GeometryInstance>();
-//     triInst3->setGeometry(tri2);
+//     std::shared_ptr<ShapeInstance> triInst3 = std::make_shared<ShapeInstance>();
+//     triInst3->setShape(tri2);
 //     triInst3->getTransform()->setLocationX(1.0);
 //     triInst3->setMaterial(std::make_shared<Lambert>(Color(0.0, 0.0, 1.0)));
 
-//     std::shared_ptr<GeometryInstance> rectInst = std::make_shared<GeometryInstance>();
-//     rectInst->setGeometry(rect);
+//     std::shared_ptr<ShapeInstance> rectInst = std::make_shared<ShapeInstance>();
+//     rectInst->setShape(rect);
 //     rectInst->getTransform()->setLocationY(-0.65);
 //     rectInst->getTransform()->setUniformScale(2.0);
 //     rectInst->getTransform()->setRotationY(-20.0);
@@ -191,49 +192,49 @@ std::shared_ptr<Scene> createScene() {
     cam->setLookAt(Vector3(0.0, 0.0, 0.0));
     result->setCamera(cam);
 
-    std::shared_ptr<Geometry> cube = std::make_shared<IndexedTriangleMesh>(MeshType::Cube);
-    std::shared_ptr<Geometry> sphere = std::make_shared<Sphere>();
-    std::shared_ptr<Geometry> rect = std::make_shared<Rectangle>();
+    std::shared_ptr<Shape> cube = std::make_shared<MeshRef>(std::make_shared<IndexedTriangleMesh>(MeshType::Cube));
+    std::shared_ptr<Shape> sphere = std::make_shared<Sphere>();
+    std::shared_ptr<Shape> rect = std::make_shared<Rectangle>();
 
-    std::shared_ptr<GeometryInstance> cubeInst = std::make_shared<GeometryInstance>();
-    cubeInst->setGeometry(cube);
+    std::shared_ptr<ShapeInstance> cubeInst = std::make_shared<ShapeInstance>();
+    cubeInst->setShape(cube);
     cubeInst->getTransform()->setScaleZ(0.1);
     cubeInst->setMaterial(std::make_shared<Dielectric>(1.5));
 
-    std::shared_ptr<GeometryInstance> sphereInst1 = std::make_shared<GeometryInstance>();
-    sphereInst1->setGeometry(sphere);
+    std::shared_ptr<ShapeInstance> sphereInst1 = std::make_shared<ShapeInstance>();
+    sphereInst1->setShape(sphere);
     sphereInst1->getTransform()->setLocationX(1.0);
     sphereInst1->getTransform()->setLocationY(-1.0);
     sphereInst1->getTransform()->setLocationZ(-2.0);
     sphereInst1->getTransform()->setUniformScale(0.4);
     sphereInst1->setMaterial(std::make_shared<Lambert>(Color(0.2, 0.2, 0.2)));
 
-    std::shared_ptr<GeometryInstance> sphereInst2 = std::make_shared<GeometryInstance>();
-    sphereInst2->setGeometry(sphere);
+    std::shared_ptr<ShapeInstance> sphereInst2 = std::make_shared<ShapeInstance>();
+    sphereInst2->setShape(sphere);
     sphereInst2->getTransform()->setLocationX(-1.0);
     sphereInst2->getTransform()->setLocationY(1.0);
     sphereInst2->getTransform()->setLocationZ(-2.0);
     sphereInst2->getTransform()->setUniformScale(0.4);
     sphereInst2->setMaterial(std::make_shared<Lambert>(Color(0.2, 0.2, 1.0)));
 
-    std::shared_ptr<GeometryInstance> sphereInst3 = std::make_shared<GeometryInstance>();
-    sphereInst3->setGeometry(sphere);
+    std::shared_ptr<ShapeInstance> sphereInst3 = std::make_shared<ShapeInstance>();
+    sphereInst3->setShape(sphere);
     sphereInst3->getTransform()->setLocationX(1.0);
     sphereInst3->getTransform()->setLocationY(1.0);
     sphereInst3->getTransform()->setLocationZ(-2.0);
     sphereInst3->getTransform()->setUniformScale(0.4);
     sphereInst3->setMaterial(std::make_shared<Dielectric>(1.5));
 
-    std::shared_ptr<GeometryInstance> sphereInst4 = std::make_shared<GeometryInstance>();
-    sphereInst4->setGeometry(sphere);
+    std::shared_ptr<ShapeInstance> sphereInst4 = std::make_shared<ShapeInstance>();
+    sphereInst4->setShape(sphere);
     sphereInst4->getTransform()->setLocationX(-1.0);
     sphereInst4->getTransform()->setLocationY(-1.0);
     sphereInst4->getTransform()->setLocationZ(-2.0);
     sphereInst4->getTransform()->setUniformScale(0.4);
     sphereInst4->setMaterial(std::make_shared<Metal>(Color(0.8, 0.8, 1.0), 0.3));
 
-    std::shared_ptr<GeometryInstance> rectInst = std::make_shared<GeometryInstance>();
-    rectInst->setGeometry(rect);
+    std::shared_ptr<ShapeInstance> rectInst = std::make_shared<ShapeInstance>();
+    rectInst->setShape(rect);
     rectInst->getTransform()->setLocationY(-1.5);
     rectInst->getTransform()->setUniformScale(10.0);
     rectInst->setMaterial(std::make_shared<Lambert>(Color(0.5, 0.5, 0.5)));

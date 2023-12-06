@@ -73,3 +73,8 @@ Vector4 ShapeGroup::getCenter() {
     }
     return result / float(shapes.size());
 }
+
+
+std::shared_ptr<Shape> ShapeGroup::buildBVH(int axis) {
+    return BVHNode::create(shapes, axis);
+}

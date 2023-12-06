@@ -22,13 +22,13 @@ std::shared_ptr<BVHNode> BVHNode::create(std::vector<std::shared_ptr<Shape> > sh
 
     int n = shapes.size();
     if(n == 1) {
-        result->setLeft(shapes[0]);
+        result->setLeft(shapes[0]->buildBVH((axis + 1) % 3));
         result->setRight(nullptr);
         result->setBBox(shapes[0]->createBoundingBox());
     }
     else if(n == 2) {
-        result->setLeft(shapes[0]);
-        result->setRight(shapes[1]);
+        result->setLeft(shapes[0]->buildBVH((axis + 1) % 3));
+        result->setRight(shapes[1]->buildBVH((axis + 1) % 3));
         result->setBBox(BoundingBox(shapes[0]->createBoundingBox(), shapes[1]->createBoundingBox()));
     }
     else {

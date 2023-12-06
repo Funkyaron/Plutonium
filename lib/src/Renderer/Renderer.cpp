@@ -15,7 +15,7 @@
 #include "Material.h"
 
 
-Color shadeRay(Ray r, std::shared_ptr<BVHNode> bvhRoot, int depth) {
+Color shadeRay(Ray r, std::shared_ptr<Shape> bvhRoot, int depth) {
     HitRecord rec;
     if(bvhRoot->hit(r, 0.001, std::numeric_limits<float>::max(), rec)) {
         Ray scattered;
@@ -43,7 +43,7 @@ namespace Plutonium {
         auto cam = scene->getCamera();
         buf.init(cam->getPixelWidth(), cam->getPixelHeight());
 
-        std::shared_ptr<BVHNode> bvhRoot = BVHNode::create(scene->getShapeGroup()->getShapes(), 0);
+        std::shared_ptr<Shape> bvhRoot = scene->getShapeGroup()->buildBVH(0);
 
         int nsamples = 100;
 
