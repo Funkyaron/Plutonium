@@ -19,6 +19,8 @@ include_directories(lib-3rd-party/stb_image)
 add_library(PlutoniumCore SHARED
 
     lib/src/Core/Mesh/IndexedTriangleMesh.cpp
+    lib/src/Core/Mesh/TriangleFanMesh.cpp
+    lib/src/Core/Mesh/TriangleStripMesh.cpp
 
     lib/src/Core/Color.cpp
     lib/src/Core/Matrix4.cpp
