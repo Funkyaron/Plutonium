@@ -44,3 +44,11 @@ void IndexedTriangleMesh::makeShapeCollection(std::vector<std::shared_ptr<Shape>
         targetShapes.push_back(std::make_shared<Triangle>(vertices[currentTriInd[0]], vertices[currentTriInd[1]], vertices[currentTriInd[2]]));
     }
 }
+
+Vector4 IndexedTriangleMesh::getCenter() {
+    Vector4 sum(0.0, 0.0, 0.0, 0.0);
+    for(auto& vertex : vertices) {
+        sum += vertex;
+    }
+    return sum / float(vertices.size());
+}

@@ -71,3 +71,11 @@ void TriangleStripMesh::makeShapeCollection(std::vector<std::shared_ptr<Shape> >
         indicesIt++;
     }
 }
+
+Vector4 TriangleStripMesh::getCenter() {
+    Vector4 sum(0.0, 0.0, 0.0, 0.0);
+    for(auto& vertex : vertices) {
+        sum += vertex;
+    }
+    return sum / float(vertices.size());
+}

@@ -25,12 +25,7 @@ BoundingBox MeshRef::createBoundingBox() {
 }
 
 Vector4 MeshRef::getCenter() {
-    Vector4 sum(0.0, 0.0, 0.0, 0.0);
-    const std::vector<Vector4>& meshVertices = mesh->getVertices();
-    for(auto& vertex : meshVertices) {
-        sum += vertex;
-    }
-    return sum / float(meshVertices.size());
+    return mesh->getCenter();
 }
 
 std::shared_ptr<Shape> MeshRef::buildBVH(int axis) {
