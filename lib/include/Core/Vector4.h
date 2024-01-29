@@ -34,6 +34,8 @@ public:
     Vector4& operator*=(const float t);
     Vector4& operator/=(const float t);
 
+    operator Vector3();
+
 private:
 
     std::array<float, 4> numbers;

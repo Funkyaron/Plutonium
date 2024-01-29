@@ -20,7 +20,7 @@ std::vector<std::shared_ptr<Shape> >& ShapeGroup::getShapes() {
 bool ShapeGroup::hit(Ray r, float t0, float t1, HitRecord& rec) const {
     HitRecord tempRec;
     bool hitAnything = false;
-    double closestSoFar = t1;
+    float closestSoFar = t1;
     for(auto& shape : shapes) {
         if(shape->hit(r, t0, closestSoFar, tempRec)) {
             hitAnything = true;
@@ -72,4 +72,9 @@ Vector4 ShapeGroup::getCenter() {
         result += shape->getCenter();
     }
     return result / float(shapes.size());
+}
+
+
+std::shared_ptr<Shape> ShapeGroup::buildBVH(int axis) {
+    return BVHNode::create(shapes, axis);
 }

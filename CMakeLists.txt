@@ -5,10 +5,12 @@ cmake_minimum_required(VERSION 3.21)
 project(Plutonium)
 
 
-set (CMAKE_CXX_STANDARD 20)
+set (CMAKE_CXX_STANDARD 23)
 
 
 include_directories(lib/include/Core)
+include_directories(lib/include/Core/Mesh)
+include_directories(lib/include/FileHandling)
 include_directories(lib/include/Renderer)
 include_directories(lib/include/Scene)
 include_directories(lib/include/Utility)
@@ -16,6 +18,12 @@ include_directories(lib-3rd-party/stb_image)
 
 
 add_library(PlutoniumCore SHARED
+
+    lib/src/Core/Mesh/HalfEdgeMesh.cpp
+    lib/src/Core/Mesh/IndexedTriangleMesh.cpp
+    lib/src/Core/Mesh/TriangleFanMesh.cpp
+    lib/src/Core/Mesh/TriangleStripMesh.cpp
+
     lib/src/Core/Color.cpp
     lib/src/Core/Matrix4.cpp
     lib/src/Core/PixelBuffer.cpp
@@ -24,6 +32,8 @@ add_library(PlutoniumCore SHARED
     lib/src/Core/Vector3.cpp
     lib/src/Core/Vector4.cpp
 
+    lib/src/FileHandling/OBJImporter.cpp
+
     lib/src/Renderer/Renderer.cpp
 
     lib/src/Scene/Materials/Lambert.cpp
@@ -31,9 +41,12 @@ add_library(PlutoniumCore SHARED
     lib/src/Scene/Materials/Dielectric.cpp
 
     lib/src/Scene/Shapes/BVHNode.cpp
-    lib/src/Scene/Shapes/GeometryInstance.cpp
+    lib/src/Scene/Shapes/MeshRef.cpp
+    lib/src/Scene/Shapes/Rectangle.cpp
     lib/src/Scene/Shapes/ShapeGroup.cpp
+    lib/src/Scene/Shapes/ShapeInstance.cpp
     lib/src/Scene/Shapes/Sphere.cpp
+    lib/src/Scene/Shapes/Triangle.cpp
 
     lib/src/Scene/BoundingBox.cpp
     lib/src/Scene/Camera.cpp

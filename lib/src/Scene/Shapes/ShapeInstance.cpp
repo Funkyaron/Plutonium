@@ -16,14 +16,14 @@
 
 
 
-GeometryInstance::GeometryInstance() {
-    geometry = nullptr;
+ShapeInstance::ShapeInstance() {
+    shape = nullptr;
     transform = std::make_shared<Transform>();
     material = nullptr;
 }
 
-GeometryInstance::GeometryInstance(std::shared_ptr<Geometry> geometry_, std::shared_ptr<Transform> transform_, std::shared_ptr<Material> material_) {
-    geometry = geometry_;
+ShapeInstance::ShapeInstance(std::shared_ptr<Shape> shape_, std::shared_ptr<Transform> transform_, std::shared_ptr<Material> material_) {
+    shape = shape_;
     transform = transform_;
     material = material_;
 }
@@ -31,13 +31,13 @@ GeometryInstance::GeometryInstance(std::shared_ptr<Geometry> geometry_, std::sha
 
 
 
-bool GeometryInstance::hit(Ray r, float t0, float t1, HitRecord& rec) const {
+bool ShapeInstance::hit(Ray r, float t0, float t1, HitRecord& rec) const {
 
     Matrix4 inverse = transform->getInverseAsMatrix4();
 
     Ray transfomedRay = r.getTransformedRay(inverse);
 
-    if(geometry->hit(transfomedRay, t0, t1, rec)) {
+    if(shape->hit(transfomedRay, t0, t1, rec)) {
         rec.p = r.pointAtParameter(rec.t);
         inverse.transpose();
         Vector4 transformedNormal = inverse * Vector4::direction(rec.normal);
@@ -52,8 +52,8 @@ bool GeometryInstance::hit(Ray r, float t0, float t1, HitRecord& rec) const {
 }
 
 
-BoundingBox GeometryInstance::createBoundingBox() {
-    BoundingBox originalBoundingBox = geometry->createBoundingBox();
+BoundingBox ShapeInstance::createBoundingBox() {
+    BoundingBox originalBoundingBox = shape->createBoundingBox();
 
     std::array<Vector4, 8> corners = {
 
@@ -111,34 +111,40 @@ BoundingBox GeometryInstance::createBoundingBox() {
 }
 
 
-Vector4 GeometryInstance::getCenter() {
-    return transform->getAsMatrix4() * geometry->getCenter();
+Vector4 ShapeInstance::getCenter() {
+    return transform->getAsMatrix4() * shape->getCenter();
+}
+
+
+std::shared_ptr<Shape> ShapeInstance::buildBVH(int axis) {
+    shape = shape->buildBVH(axis);
+    return shared_from_this();
 }
 
 
 
 
 
-void GeometryInstance::setGeometry(std::shared_ptr<Geometry> geometry_) {
-    geometry = geometry_;
+void ShapeInstance::setShape(std::shared_ptr<Shape> shape_) {
+    shape = shape_;
 }
 
-std::shared_ptr<Geometry> GeometryInstance::getGeometry() const {
-    return geometry;
+std::shared_ptr<Shape> ShapeInstance::getShape() const {
+    return shape;
 }
 
-void GeometryInstance::setTransform(std::shared_ptr<Transform> transform_) {
+void ShapeInstance::setTransform(std::shared_ptr<Transform> transform_) {
     transform = transform_;
 }
 
-std::shared_ptr<Transform> GeometryInstance::getTransform() const {
+std::shared_ptr<Transform> ShapeInstance::getTransform() const {
     return transform;
 }
 
-void GeometryInstance::setMaterial(std::shared_ptr<Material> material_) {
+void ShapeInstance::setMaterial(std::shared_ptr<Material> material_) {
     material = material_;
 }
 
-std::shared_ptr<Material> GeometryInstance::getMaterial() const {
+std::shared_ptr<Material> ShapeInstance::getMaterial() const {
     return material;
 }
