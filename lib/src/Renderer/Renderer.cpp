@@ -44,7 +44,7 @@ namespace Plutonium {
 
         std::shared_ptr<Shape> bvhRoot = scene->getShapeGroup()->buildBVH(0);
 
-        int nsamples = 500;
+        int nsamples = 100;
 
         buf.forEachConcurrent([&](int x, int y, Color& currentPixel) {
             Color col(0.0, 0.0, 0.0);

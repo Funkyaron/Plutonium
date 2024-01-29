@@ -322,7 +322,6 @@ std::shared_ptr<Scene> createScene() {
     cam->setResolution(500, 300);
     cam->setLookFrom(Vector3(5.0, 10.0, 7.0));
     cam->setLookAt(Vector3(0.0, 0.0, 0.0));
-    result->setCamera(cam);
 
     std::shared_ptr<Shape> gear = std::make_shared<MeshRef>(OBJImporter::importOBJ("../assets/Gear2/Gear2.obj"));
     std::shared_ptr<Shape> sphere = std::make_shared<Sphere>();
@@ -343,6 +342,122 @@ std::shared_ptr<Scene> createScene() {
     world->addShape(gearInst);
     world->addShape(lightBulb);
 
+    result->setCamera(cam);
+    result->setShapeGroup(world);
+
+    return result;
+}
+
+
+std::shared_ptr<Scene> createCornellBox() {
+    std::shared_ptr<Scene> result = std::make_shared<Scene>();
+
+    std::shared_ptr<Camera> cam = std::make_shared<Camera>();
+    cam->setResolution(300, 300);
+    cam->setLookFrom(Vector3(278.0, 278.0, -800.0));
+    cam->setLookAt(Vector3(278.0, 278.0, 0.0));
+    cam->setVerticalFOV(40.0);
+    cam->setAperture(0.0);
+    cam->setFocusDist(10.0);
+
+    std::shared_ptr<Shape> cube = std::make_shared<MeshRef>(OBJImporter::importOBJ("../assets/Cube/Cube.obj"));
+
+    std::shared_ptr<Material> red = std::make_shared<Lambert>(Color(0.65, 0.05, 0.05));
+    std::shared_ptr<Material> white = std::make_shared<Lambert>(Color(0.73, 0.73, 0.73));
+    std::shared_ptr<Material> green = std::make_shared<Lambert>(Color(0.12, 0.45, 0.15));
+    std::shared_ptr<Material> lightMat = std::make_shared<DiffuseLight>(Color(15.0, 15.0, 15.0));
+
+    std::shared_ptr<ShapeInstance> rightWall = std::make_shared<ShapeInstance>();
+    rightWall->setShape(cube);
+    rightWall->getTransform()->setScaleX(0.01);
+    rightWall->getTransform()->setScaleY(555.0 / 2.0);
+    rightWall->getTransform()->setScaleZ(555.0 / 2.0);
+    rightWall->getTransform()->setLocationX(555.0);
+    rightWall->getTransform()->setLocationY(555.0 / 2.0);
+    rightWall->getTransform()->setLocationZ(555.0 / 2.0);
+    rightWall->setMaterial(green);
+
+    std::shared_ptr<ShapeInstance> leftWall = std::make_shared<ShapeInstance>();
+    leftWall->setShape(cube);
+    leftWall->getTransform()->setScaleX(0.01);
+    leftWall->getTransform()->setScaleY(555.0 / 2.0);
+    leftWall->getTransform()->setScaleZ(555.0 / 2.0);
+    leftWall->getTransform()->setLocationX(0.0);
+    leftWall->getTransform()->setLocationY(555.0 / 2.0);
+    leftWall->getTransform()->setLocationZ(555.0 / 2.0);
+    leftWall->setMaterial(red);
+
+    std::shared_ptr<ShapeInstance> backWall = std::make_shared<ShapeInstance>();
+    backWall->setShape(cube);
+    backWall->getTransform()->setScaleX(555.0 / 2.0);
+    backWall->getTransform()->setScaleY(555.0 / 2.0);
+    backWall->getTransform()->setScaleZ(0.01);
+    backWall->getTransform()->setLocationX(555.0 / 2.0);
+    backWall->getTransform()->setLocationY(555.0 / 2.0);
+    backWall->getTransform()->setLocationZ(555.0);
+    backWall->setMaterial(white);
+
+    std::shared_ptr<ShapeInstance> floor = std::make_shared<ShapeInstance>();
+    floor->setShape(cube);
+    floor->getTransform()->setScaleX(555.0 / 2.0);
+    floor->getTransform()->setScaleY(0.01);
+    floor->getTransform()->setScaleZ(555.0 / 2.0);
+    floor->getTransform()->setLocationX(555.0 / 2.0);
+    floor->getTransform()->setLocationY(0.0);
+    floor->getTransform()->setLocationZ(555.0 / 2.0);
+    floor->setMaterial(white);
+
+    std::shared_ptr<ShapeInstance> ceiling = std::make_shared<ShapeInstance>();
+    ceiling->setShape(cube);
+    ceiling->getTransform()->setScaleX(555.0 / 2.0);
+    ceiling->getTransform()->setScaleY(0.01);
+    ceiling->getTransform()->setScaleZ(555.0 / 2.0);
+    ceiling->getTransform()->setLocationX(555.0 / 2.0);
+    ceiling->getTransform()->setLocationY(555.0);
+    ceiling->getTransform()->setLocationZ(555.0 / 2.0);
+    ceiling->setMaterial(white);
+
+    std::shared_ptr<ShapeInstance> light = std::make_shared<ShapeInstance>();
+    light->setShape(cube);
+    light->getTransform()->setScaleX((343.0 - 213.0) / 2.0);
+    light->getTransform()->setScaleY(1.0);
+    light->getTransform()->setScaleZ((332.0 - 227.0) / 2.0);
+    light->getTransform()->setLocationX(213.0 + (343.0 - 213.0) / 2.0);
+    light->getTransform()->setLocationY(555.0);
+    light->getTransform()->setLocationZ(227.0 + (332.0 - 227.0) / 2.0);
+    light->setMaterial(lightMat);
+
+    std::shared_ptr<ShapeInstance> box1 = std::make_shared<ShapeInstance>();
+    box1->setShape(cube);
+    box1->getTransform()->setUniformScale(165.0 / 2.0);
+    box1->getTransform()->setRotationY(-18.0);
+    box1->getTransform()->setLocationX(165.0 / 2.0 + 130.0);
+    box1->getTransform()->setLocationY(165.0 / 2.0);
+    box1->getTransform()->setLocationZ(165.0 / 2.0 + 65.0);
+    box1->setMaterial(white);
+
+    std::shared_ptr<ShapeInstance> box2 = std::make_shared<ShapeInstance>();
+    box2->setShape(cube);
+    box2->getTransform()->setScaleX(165.0 / 2.0);
+    box2->getTransform()->setScaleY(330.0 / 2.0);
+    box2->getTransform()->setScaleZ(165.0 / 2.0);
+    box2->getTransform()->setRotationY(15.0);
+    box2->getTransform()->setLocationX(165.0 / 2.0 + 265.0);
+    box2->getTransform()->setLocationY(330.0 / 2.0);
+    box2->getTransform()->setLocationZ(165.0 / 2.0 + 295.0);
+    box2->setMaterial(white);
+
+    std::shared_ptr<ShapeGroup> world = std::make_shared<ShapeGroup>();
+    world->addShape(rightWall);
+    world->addShape(leftWall);
+    world->addShape(backWall);
+    world->addShape(floor);
+    world->addShape(ceiling);
+    world->addShape(light);
+    world->addShape(box1);
+    world->addShape(box2);
+
+    result->setCamera(cam);
     result->setShapeGroup(world);
 
     return result;
@@ -354,7 +469,7 @@ std::shared_ptr<Scene> createScene() {
 int main() {
 
 
-    std::shared_ptr<Scene> myScene = createScene();
+    std::shared_ptr<Scene> myScene = createCornellBox();
 
     PixelBuffer myImage;
 
