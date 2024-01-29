@@ -39,6 +39,7 @@ add_library(PlutoniumCore SHARED
     lib/src/Scene/Materials/Lambert.cpp
     lib/src/Scene/Materials/Metal.cpp
     lib/src/Scene/Materials/Dielectric.cpp
+    lib/src/Scene/Materials/DiffuseLight.cpp
 
     lib/src/Scene/Shapes/BVHNode.cpp
     lib/src/Scene/Shapes/MeshRef.cpp
