@@ -300,13 +300,13 @@ std::shared_ptr<Mesh> OBJImporter::importOBJ(const std::string& filename) {
             else if(c == '/') {
                 std::string tokenString = currentStringStream.str();
                 currentStringStream.str("");
-                currentFaceVertex.vert = std::stoi(tokenString);
+                currentFaceVertex.vert = std::stoi(tokenString) - 1;
                 currentState = OBJImporterState::MAYBE_FACE_TEX_IND;
             }
             else if(c == ' ') {
                 std::string tokenString = currentStringStream.str();
                 currentStringStream.str("");
-                currentFaceVertex.vert = std::stoi(tokenString);
+                currentFaceVertex.vert = std::stoi(tokenString) - 1;
                 currentFaceVertex.norm = 0;
                 currentFaceVertex.tex = 0;
                 currentFace.push_back(currentFaceVertex);
@@ -315,7 +315,7 @@ std::shared_ptr<Mesh> OBJImporter::importOBJ(const std::string& filename) {
             else if(c == '\n') {
                 std::string tokenString = currentStringStream.str();
                 currentStringStream.str("");
-                currentFaceVertex.vert = std::stoi(tokenString);
+                currentFaceVertex.vert = std::stoi(tokenString) - 1;
                 currentFaceVertex.norm = 0;
                 currentFaceVertex.tex = 0;
                 currentFace.push_back(currentFaceVertex);
@@ -351,13 +351,13 @@ std::shared_ptr<Mesh> OBJImporter::importOBJ(const std::string& filename) {
             else if(c == '/') {
                 std::string tokenString = currentStringStream.str();
                 currentStringStream.str("");
-                currentFaceVertex.tex = std::stoi(tokenString);
+                currentFaceVertex.tex = std::stoi(tokenString) - 1;
                 currentState = OBJImporterState::REC_FACE_NORM_IND;
             }
             else if(c == ' ') {
                 std::string tokenString = currentStringStream.str();
                 currentStringStream.str("");
-                currentFaceVertex.tex = std::stoi(tokenString);
+                currentFaceVertex.tex = std::stoi(tokenString) - 1;
                 currentFaceVertex.norm = 0;
                 currentFace.push_back(currentFaceVertex);
                 currentState = OBJImporterState::FACE_VERT_SEP;
@@ -365,7 +365,7 @@ std::shared_ptr<Mesh> OBJImporter::importOBJ(const std::string& filename) {
             else if(c == '\n') {
                 std::string tokenString = currentStringStream.str();
                 currentStringStream.str("");
-                currentFaceVertex.tex = std::stoi(tokenString);
+                currentFaceVertex.tex = std::stoi(tokenString) - 1;
                 currentFaceVertex.norm = 0;
                 currentFace.push_back(currentFaceVertex);
 
@@ -386,14 +386,14 @@ std::shared_ptr<Mesh> OBJImporter::importOBJ(const std::string& filename) {
             else if(c == ' ') {
                 std::string tokenString = currentStringStream.str();
                 currentStringStream.str("");
-                currentFaceVertex.norm = std::stoi(tokenString);
+                currentFaceVertex.norm = std::stoi(tokenString) - 1;
                 currentFace.push_back(currentFaceVertex);
                 currentState = OBJImporterState::FACE_VERT_SEP;
             }
             else if(c == '\n') {
                 std::string tokenString = currentStringStream.str();
                 currentStringStream.str("");
-                currentFaceVertex.norm = std::stoi(tokenString);
+                currentFaceVertex.norm = std::stoi(tokenString) - 1;
                 currentFace.push_back(currentFaceVertex);
 
                 isFileValid = triangulateAndAdd(currentFace, triangles);
