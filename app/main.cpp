@@ -319,20 +319,29 @@ std::shared_ptr<Scene> createScene() {
     std::shared_ptr<Scene> result = std::make_shared<Scene>();
 
     std::shared_ptr<Camera> cam = std::make_shared<Camera>();
-    cam->setResolution(200, 100);
-    cam->setLookFrom(Vector3(100.0, 30.0, 100.0));
+    cam->setResolution(500, 300);
+    cam->setLookFrom(Vector3(5.0, 10.0, 7.0));
     cam->setLookAt(Vector3(0.0, 0.0, 0.0));
     result->setCamera(cam);
 
-    std::shared_ptr<Shape> gear = std::make_shared<MeshRef>(OBJImporter::importOBJ("../assets/Dragon_1/Dragon_1.obj"));
-    std::cout << "After OBJ import\n";
+    std::shared_ptr<Shape> gear = std::make_shared<MeshRef>(OBJImporter::importOBJ("../assets/Gear2/Gear2.obj"));
+    std::shared_ptr<Shape> sphere = std::make_shared<Sphere>();
 
     std::shared_ptr<ShapeInstance> gearInst = std::make_shared<ShapeInstance>();
     gearInst->setShape(gear);
-    gearInst->setMaterial(std::make_shared<Lambert>(Color(1.0, 0.0, 0.0)));
+    gearInst->setMaterial(std::make_shared<Lambert>(Color(0.0, 1.0, 1.0)));
+
+    std::shared_ptr<ShapeInstance> lightBulb = std::make_shared<ShapeInstance>();
+    lightBulb->setShape(sphere);
+    lightBulb->getTransform()->setLocationX(1.0);
+    lightBulb->getTransform()->setLocationY(7.0);
+    lightBulb->getTransform()->setLocationZ(-2.0);
+    // lightBulb->getTransform()->setUniformScale(0.5);
+    lightBulb->setMaterial(std::make_shared<DiffuseLight>(Color(10.1, 10.4, 10.8)));
 
     std::shared_ptr<ShapeGroup> world = std::make_shared<ShapeGroup>();
     world->addShape(gearInst);
+    world->addShape(lightBulb);
 
     result->setShapeGroup(world);
 

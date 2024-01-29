@@ -16,6 +16,7 @@ class Material {
 public:
 
     virtual bool scatter(const Ray& rIn, const HitRecord& rec, Color& attenuation, Ray& scattered) const = 0;
+    virtual Color emit() const {return Color(0.0, 0.0, 0.0);}
 
 private:
 
@@ -64,6 +65,22 @@ private:
     float schlick(float cosine, float refractionIndex) const;
 
     float refractionIndex;
+
+};
+
+
+
+class DiffuseLight : public Material {
+public:
+
+    DiffuseLight(const Color& emittedColor_) : emittedColor(emittedColor_) {}
+
+    virtual bool scatter(const Ray& rIn, const HitRecord& rec, Color& attenuation, Ray& scattered) const override;
+    virtual Color emit() const override;
+
+private:
+
+    Color emittedColor;
 
 };
 

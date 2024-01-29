@@ -20,17 +20,16 @@ Color shadeRay(Ray r, std::shared_ptr<Shape> bvhRoot, int depth) {
     if(bvhRoot->hit(r, 0.001, std::numeric_limits<float>::max(), rec)) {
         Ray scattered;
         Color attenuation;
+        Color emitted = rec.material->emit();
         if(depth < 50 && rec.material->scatter(r, rec, attenuation, scattered)) {
-            return attenuation * shadeRay(scattered, bvhRoot, depth + 1);
+            return emitted + attenuation * shadeRay(scattered, bvhRoot, depth + 1);
         }
         else {
-            return Color(0.0, 0.0, 0.0);
+            return emitted;
         }
     }
     else {
-        Vector3 unitDirection = unitVector(r.getDirection());
-        float t = 0.5 * unitDirection.y() + 1.0;
-        return (1.0 - t) * Color(1.0, 1.0, 1.0) + t * Color(0.5, 0.7, 1.0);
+        return Color(0.0, 0.0, 0.0);
     }
 }
 
@@ -45,9 +44,7 @@ namespace Plutonium {
 
         std::shared_ptr<Shape> bvhRoot = scene->getShapeGroup()->buildBVH(0);
 
-        std::cout << "After build BVH\n";
-
-        int nsamples = 1;
+        int nsamples = 500;
 
         buf.forEachConcurrent([&](int x, int y, Color& currentPixel) {
             Color col(0.0, 0.0, 0.0);
