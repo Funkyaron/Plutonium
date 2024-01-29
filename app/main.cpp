@@ -19,6 +19,7 @@
 #include "Utility.h"
 #include "Transform.h"
 #include "Mesh.h"
+#include "OBJImporter.h"
 
 
 
@@ -256,56 +257,82 @@
 
 
 
+// std::shared_ptr<Scene> createScene() {
+//     std::shared_ptr<Scene> result = std::make_shared<Scene>();
+
+//     std::shared_ptr<Camera> cam = std::make_shared<Camera>();
+//     cam->setResolution(400, 600);
+//     cam->setLookFrom(Vector3(7.0, 10.0, 7.0));
+//     cam->setLookAt(Vector3(0.0, 5.0, 0.0));
+//     cam->setVerticalFOV(60.0);
+//     result->setCamera(cam);
+
+//     std::shared_ptr<Shape> cube1 = std::make_shared<MeshRef>(std::make_shared<IndexedTriangleMesh>(MeshType::Cube));
+//     std::shared_ptr<Shape> cube2 = std::make_shared<MeshRef>(std::make_shared<TriangleFanMesh>(MeshType::Cube));
+//     std::shared_ptr<Shape> cube3 = std::make_shared<MeshRef>(std::make_shared<TriangleStripMesh>(MeshType::Cube));
+//     std::shared_ptr<Shape> cube4 = std::make_shared<MeshRef>(std::make_shared<HalfEdgeMesh>(MeshType::Cube));
+//     std::shared_ptr<Shape> cube5 = std::make_shared<MeshRef>(std::make_shared<TriangleFanMesh>("../assets/Cube/Cube.obj"));
+
+//     std::shared_ptr<ShapeInstance> cubeInst1 = std::make_shared<ShapeInstance>();
+//     cubeInst1->setShape(cube1);
+//     cubeInst1->setMaterial(std::make_shared<Lambert>(Color(0.5, 0.0, 0.0)));
+
+//     std::shared_ptr<ShapeInstance> cubeInst2 = std::make_shared<ShapeInstance>();
+//     cubeInst2->setShape(cube2);
+//     cubeInst2->getTransform()->setLocationY(2.0);
+//     cubeInst2->getTransform()->setRotationY(20.0);
+//     cubeInst2->setMaterial(std::make_shared<Lambert>(Color(0.0, 0.5, 0.0)));
+
+//     std::shared_ptr<ShapeInstance> cubeInst3 = std::make_shared<ShapeInstance>();
+//     cubeInst3->setShape(cube2);
+//     cubeInst3->getTransform()->setLocationY(4.0);
+//     cubeInst3->getTransform()->setRotationY(40.0);
+//     cubeInst3->setMaterial(std::make_shared<Lambert>(Color(0.0, 0.0, 0.5)));
+
+//     std::shared_ptr<ShapeInstance> cubeInst4 = std::make_shared<ShapeInstance>();
+//     cubeInst4->setShape(cube2);
+//     cubeInst4->getTransform()->setLocationY(6.0);
+//     cubeInst4->getTransform()->setRotationY(60.0);
+//     cubeInst4->setMaterial(std::make_shared<Lambert>(Color(0.5, 0.0, 0.5)));
+
+//     std::shared_ptr<ShapeInstance> cubeInst5 = std::make_shared<ShapeInstance>();
+//     cubeInst5->setShape(cube2);
+//     cubeInst5->getTransform()->setLocationY(8.0);
+//     cubeInst5->getTransform()->setRotationY(80.0);
+//     cubeInst5->setMaterial(std::make_shared<Lambert>(Color(0.0, 0.5, 0.5)));
+
+//     std::shared_ptr<ShapeGroup> world = std::make_shared<ShapeGroup>();
+//     world->addShape(cubeInst1);
+//     world->addShape(cubeInst2);
+//     world->addShape(cubeInst3);
+//     world->addShape(cubeInst4);
+//     world->addShape(cubeInst5);
+
+//     result->setShapeGroup(world);
+
+//     return result;
+// }
+
+
+
 std::shared_ptr<Scene> createScene() {
     std::shared_ptr<Scene> result = std::make_shared<Scene>();
 
     std::shared_ptr<Camera> cam = std::make_shared<Camera>();
-    cam->setResolution(200, 300);
-    cam->setLookFrom(Vector3(7.0, 10.0, 7.0));
-    cam->setLookAt(Vector3(0.0, 5.0, 0.0));
-    cam->setVerticalFOV(60.0);
+    cam->setResolution(200, 100);
+    cam->setLookFrom(Vector3(100.0, 30.0, 100.0));
+    cam->setLookAt(Vector3(0.0, 0.0, 0.0));
     result->setCamera(cam);
 
-    std::shared_ptr<Shape> cube1 = std::make_shared<MeshRef>(std::make_shared<IndexedTriangleMesh>(MeshType::Cube));
-    std::shared_ptr<Shape> cube2 = std::make_shared<MeshRef>(std::make_shared<TriangleFanMesh>(MeshType::Cube));
-    std::shared_ptr<Shape> cube3 = std::make_shared<MeshRef>(std::make_shared<TriangleStripMesh>(MeshType::Cube));
-    std::shared_ptr<Shape> cube4 = std::make_shared<MeshRef>(std::make_shared<HalfEdgeMesh>(MeshType::Cube));
-    std::shared_ptr<Shape> cube5 = std::make_shared<MeshRef>(std::make_shared<TriangleFanMesh>("../assets/Cube/Cube.obj"));
+    std::shared_ptr<Shape> gear = std::make_shared<MeshRef>(OBJImporter::importOBJ("../assets/Dragon_1/Dragon_1.obj"));
+    std::cout << "After OBJ import\n";
 
-    std::shared_ptr<ShapeInstance> cubeInst1 = std::make_shared<ShapeInstance>();
-    cubeInst1->setShape(cube1);
-    cubeInst1->setMaterial(std::make_shared<Lambert>(Color(0.5, 0.0, 0.0)));
-
-    std::shared_ptr<ShapeInstance> cubeInst2 = std::make_shared<ShapeInstance>();
-    cubeInst2->setShape(cube2);
-    cubeInst2->getTransform()->setLocationY(2.0);
-    cubeInst2->getTransform()->setRotationY(20.0);
-    cubeInst2->setMaterial(std::make_shared<Lambert>(Color(0.0, 0.5, 0.0)));
-
-    std::shared_ptr<ShapeInstance> cubeInst3 = std::make_shared<ShapeInstance>();
-    cubeInst3->setShape(cube2);
-    cubeInst3->getTransform()->setLocationY(4.0);
-    cubeInst3->getTransform()->setRotationY(40.0);
-    cubeInst3->setMaterial(std::make_shared<Lambert>(Color(0.0, 0.0, 0.5)));
-
-    std::shared_ptr<ShapeInstance> cubeInst4 = std::make_shared<ShapeInstance>();
-    cubeInst4->setShape(cube2);
-    cubeInst4->getTransform()->setLocationY(6.0);
-    cubeInst4->getTransform()->setRotationY(60.0);
-    cubeInst4->setMaterial(std::make_shared<Lambert>(Color(0.5, 0.0, 0.5)));
-
-    std::shared_ptr<ShapeInstance> cubeInst5 = std::make_shared<ShapeInstance>();
-    cubeInst5->setShape(cube2);
-    cubeInst5->getTransform()->setLocationY(8.0);
-    cubeInst5->getTransform()->setRotationY(80.0);
-    cubeInst5->setMaterial(std::make_shared<Lambert>(Color(0.0, 0.5, 0.5)));
+    std::shared_ptr<ShapeInstance> gearInst = std::make_shared<ShapeInstance>();
+    gearInst->setShape(gear);
+    gearInst->setMaterial(std::make_shared<Lambert>(Color(1.0, 0.0, 0.0)));
 
     std::shared_ptr<ShapeGroup> world = std::make_shared<ShapeGroup>();
-    world->addShape(cubeInst1);
-    world->addShape(cubeInst2);
-    world->addShape(cubeInst3);
-    world->addShape(cubeInst4);
-    world->addShape(cubeInst5);
+    world->addShape(gearInst);
 
     result->setShapeGroup(world);
 
@@ -315,8 +342,8 @@ std::shared_ptr<Scene> createScene() {
 
 
 
-
 int main() {
+
 
     std::shared_ptr<Scene> myScene = createScene();
 

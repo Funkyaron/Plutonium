@@ -5,11 +5,12 @@ cmake_minimum_required(VERSION 3.21)
 project(Plutonium)
 
 
-set (CMAKE_CXX_STANDARD 20)
+set (CMAKE_CXX_STANDARD 23)
 
 
 include_directories(lib/include/Core)
 include_directories(lib/include/Core/Mesh)
+include_directories(lib/include/FileHandling)
 include_directories(lib/include/Renderer)
 include_directories(lib/include/Scene)
 include_directories(lib/include/Utility)
@@ -30,6 +31,8 @@ add_library(PlutoniumCore SHARED
     lib/src/Core/Transform.cpp
     lib/src/Core/Vector3.cpp
     lib/src/Core/Vector4.cpp
+
+    lib/src/FileHandling/OBJImporter.cpp
 
     lib/src/Renderer/Renderer.cpp
 

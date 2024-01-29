@@ -22,6 +22,13 @@ enum class MeshType {
 };
 
 
+typedef struct {
+    int vert;
+    int norm;
+    int tex;
+} TriangleIndex;
+
+
 
 class Mesh {
 public:
@@ -38,15 +45,22 @@ protected:
 class IndexedTriangleMesh : public Mesh {
 public:
 
-    IndexedTriangleMesh(MeshType type);
+    // IndexedTriangleMesh(MeshType type);
 
     virtual void makeShapeCollection(std::vector<std::shared_ptr<Shape> >& targetShapes) override;
     virtual Vector4 getCenter() override;
 
+    void setVertices(const std::vector<Vector3>& vertices_);
+    void setNormals(const std::vector<Vector3>& normals_);
+    void setTexcoords(const std::vector<Vector3>& texcoords_);
+    void setTriangleIndices(const std::vector<std::array<TriangleIndex, 3> >& indices);
+
 private:
 
-    std::vector<Vector4> vertices;
-    std::vector<std::array<int, 3> > triangleIndices;
+    std::vector<Vector3> vertices;
+    std::vector<Vector3> normals;
+    std::vector<Vector3> texcoords;
+    std::vector<std::array<TriangleIndex, 3> > triangleIndices;
 
 
 };
