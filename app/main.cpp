@@ -353,7 +353,7 @@ std::shared_ptr<Scene> createCornellBox() {
     std::shared_ptr<Scene> result = std::make_shared<Scene>();
 
     std::shared_ptr<Camera> cam = std::make_shared<Camera>();
-    cam->setResolution(500, 500);
+    cam->setResolution(300, 300);
     cam->setLookFrom(Vector3(278.0, 278.0, -800.0));
     cam->setLookAt(Vector3(278.0, 278.0, 0.0));
     cam->setVerticalFOV(40.0);
