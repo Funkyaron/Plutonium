@@ -54,6 +54,7 @@ add_library(PlutoniumCore SHARED
     lib/src/Scene/Scene.cpp
 
     lib/src/Utility/Utility.cpp
+    lib/src/Utility/OrthoNormalBasis.cpp
 )
 
 

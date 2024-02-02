@@ -15,6 +15,7 @@ namespace Plutonium {
     float getRandomNumber();
     Vector3 randomInUnitSphere();
     Vector3 randomInUnitDisk();
+    Vector3 randomCosineDirection();
 }
 
 
