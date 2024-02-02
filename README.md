@@ -6,4 +6,6 @@ This is my attempt to build my own raytracing rendering engine. It is called Plu
 
 Resources that went into this project:\
 "Raytracing in a Weekend" by Peter Shirley\
+"Raytracing - The next Week" by Peter Shirley\
+"Raytracing - The rest of your life" by Peter Shirley\
 "Fundamentals of Computer Graphics" by Steve Marschner and Peter Shirley
