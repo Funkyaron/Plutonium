@@ -21,8 +21,9 @@ Color shadeRay(Ray r, std::shared_ptr<Shape> bvhRoot, int depth) {
         Ray scattered;
         Color attenuation;
         Color emitted = rec.material->emit();
-        if(depth < 50 && rec.material->scatter(r, rec, attenuation, scattered)) {
-            return emitted + attenuation * shadeRay(scattered, bvhRoot, depth + 1);
+        float pdf;
+        if(depth < 50 && rec.material->scatter(r, rec, attenuation, scattered, pdf)) {
+            return emitted + attenuation * rec.material->scattering_pdf(r, rec, scattered) * shadeRay(scattered, bvhRoot, depth + 1) / pdf;
         }
         else {
             return emitted;

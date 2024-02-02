@@ -353,7 +353,7 @@ std::shared_ptr<Scene> createCornellBox() {
     std::shared_ptr<Scene> result = std::make_shared<Scene>();
 
     std::shared_ptr<Camera> cam = std::make_shared<Camera>();
-    cam->setResolution(500, 500);
+    cam->setResolution(300, 300);
     cam->setLookFrom(Vector3(278.0, 278.0, -800.0));
     cam->setLookAt(Vector3(278.0, 278.0, 0.0));
     cam->setVerticalFOV(40.0);
@@ -361,13 +361,13 @@ std::shared_ptr<Scene> createCornellBox() {
     cam->setFocusDist(10.0);
 
     std::shared_ptr<Shape> cube = std::make_shared<MeshRef>(OBJImporter::importOBJ("../assets/Cube/Cube.obj"));
-    std::shared_ptr<Shape> dragon = std::make_shared<MeshRef>(OBJImporter::importOBJ("../assets/Dragon_1/Dragon_1.obj"));
+    // std::shared_ptr<Shape> dragon = std::make_shared<MeshRef>(OBJImporter::importOBJ("../assets/Dragon_1/Dragon_1.obj"));
 
     std::shared_ptr<Material> red = std::make_shared<Lambert>(Color(0.65, 0.05, 0.05));
     std::shared_ptr<Material> white = std::make_shared<Lambert>(Color(0.73, 0.73, 0.73));
     std::shared_ptr<Material> green = std::make_shared<Lambert>(Color(0.12, 0.45, 0.15));
     std::shared_ptr<Material> lightMat = std::make_shared<DiffuseLight>(Color(15.0, 15.0, 15.0));
-    std::shared_ptr<Material> glass = std::make_shared<Dielectric>(1.5);
+    // std::shared_ptr<Material> glass = std::make_shared<Dielectric>(1.5);
 
     std::shared_ptr<ShapeInstance> rightWall = std::make_shared<ShapeInstance>();
     rightWall->setShape(cube);
@@ -450,15 +450,15 @@ std::shared_ptr<Scene> createCornellBox() {
     box2->setMaterial(white);
 
 
-    std::shared_ptr<ShapeInstance> dragonInst = std::make_shared<ShapeInstance>();
-    dragonInst->setShape(dragon);
-    dragonInst->getTransform()->setLocationX(550.0 / 2.0);
-    dragonInst->getTransform()->setLocationY(135.0);
-    dragonInst->getTransform()->setLocationZ(550.0 / 2.0);
-    dragonInst->getTransform()->setRotationX(-90.0);
-    dragonInst->getTransform()->setRotationY(-150.0);
-    dragonInst->getTransform()->setUniformScale(2.0);
-    dragonInst->setMaterial(glass);
+    // std::shared_ptr<ShapeInstance> dragonInst = std::make_shared<ShapeInstance>();
+    // dragonInst->setShape(dragon);
+    // dragonInst->getTransform()->setLocationX(550.0 / 2.0);
+    // dragonInst->getTransform()->setLocationY(135.0);
+    // dragonInst->getTransform()->setLocationZ(550.0 / 2.0);
+    // dragonInst->getTransform()->setRotationX(-90.0);
+    // dragonInst->getTransform()->setRotationY(-150.0);
+    // dragonInst->getTransform()->setUniformScale(2.0);
+    // dragonInst->setMaterial(glass);
 
 
     std::shared_ptr<ShapeGroup> world = std::make_shared<ShapeGroup>();
