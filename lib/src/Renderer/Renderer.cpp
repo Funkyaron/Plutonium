@@ -13,6 +13,7 @@
 #include "Scene.h"
 #include "Shape.h"
 #include "Material.h"
+#include "ProbabilityDensityFunction.h"
 
 
 Color shadeRay(Ray r, std::shared_ptr<Shape> bvhRoot, int depth) {
@@ -23,6 +24,12 @@ Color shadeRay(Ray r, std::shared_ptr<Shape> bvhRoot, int depth) {
         Color emitted = rec.material->emit();
         float pdf;
         if(depth < 50 && rec.material->scatter(r, rec, attenuation, scattered, pdf)) {
+            std::shared_ptr<Shape> lightShape = std::make_shared<xz_rect>(213, 343, 227, 332, 554, nullptr);
+            ShapeProbabilityDensityFunction lightpdf(lightShape, rec.p);
+            CosineProbabilityDensityFunction cospdf(rec.normal);
+            MixtureProbabilityDensityFunction mixpdf(&lightpdf, &cospdf);
+            scattered = Ray(rec.p, mixpdf.generate());
+            pdf = mixpdf.value(scattered.getDirection());
             return emitted + attenuation * rec.material->scattering_pdf(r, rec, scattered) * shadeRay(scattered, bvhRoot, depth + 1) / pdf;
         }
         else {
@@ -45,7 +52,7 @@ namespace Plutonium {
 
         std::shared_ptr<Shape> bvhRoot = scene->getShapeGroup()->buildBVH(0);
 
-        int nsamples = 100;
+        int nsamples = 1000;
 
         buf.forEachConcurrent([&](int x, int y, Color& currentPixel) {
             Color col(0.0, 0.0, 0.0);

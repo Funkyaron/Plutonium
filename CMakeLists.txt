@@ -35,6 +35,9 @@ add_library(PlutoniumCore SHARED
     lib/src/FileHandling/OBJImporter.cpp
 
     lib/src/Renderer/Renderer.cpp
+    lib/src/Renderer/CosineProbabilityDensityFunction.cpp
+    lib/src/Renderer/ShapeProbabilityDensityFunction.cpp
+    lib/src/Renderer/MixtureProbabilityDensityFunction.cpp
 
     lib/src/Scene/Materials/Lambert.cpp
     lib/src/Scene/Materials/Metal.cpp

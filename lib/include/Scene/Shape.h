@@ -35,9 +35,71 @@ public:
 
     virtual std::shared_ptr<Shape> buildBVH(int axis) { return shared_from_this(); }
 
+    virtual float pdfValue(const Vector3& origin, const Vector3& direction) const {return 0.0;}
+    virtual Vector3 random(const Vector3& origin) const {return Vector3(1.0, 0.0, 0.0);}
+
 private:
 
 };
+
+
+
+
+
+// This is so painful, it's mostly copied from the Raytracing in a Weekend series
+#include "Ray.h"
+#include <math.h>
+#include "Utility.h"
+class xz_rect : public Shape {
+public:
+    xz_rect() {}
+    xz_rect(float _x0, float _x1, float _z0, float _z1, float _k, std::shared_ptr<Material> _material) : x0(_x0), x1(_x1), z0(_z0), z1(_z1), k(_k), material(_material) {}
+    virtual bool hit(Ray r, float t0, float t1, HitRecord& rec) const {
+        float t = (k - r.getOrigin().y()) / r.getDirection().y();
+        if(t < t0 || t > t1) {
+            return false;
+        }
+        float x = r.getOrigin().x() + t * r.getDirection().x();
+        float z = r.getOrigin().z() + t * r.getDirection().z();
+        if(x < x0 || x > x1 || z < z0 || z > z1) {
+            return false;
+        }
+        rec.t = t;
+        rec.material = material;
+        rec.p = r.pointAtParameter(t);
+        rec.normal = Vector3(0.0, 1.0, 0.0);
+        return true;
+    }
+    virtual BoundingBox createBoundingBox() {
+        return BoundingBox(x0, x1, k - 0.0001, k + 0.0001, z0, z1);
+    }
+    virtual Vector4 getCenter() {
+        return Vector4((x0 + x1) / 2.0, k, (z0 + z1) / 2.0, 1.0);
+    }
+    virtual float pdfValue(const Vector3& origin, const Vector3& direction) const {
+        HitRecord rec;
+        if(this->hit(Ray(origin, direction), 0.001, std::numeric_limits<float>::max(), rec)) {
+            float area = (x1-x0) * (z1 - z0);
+            float distanceSquared = rec.t * rec.t * direction.squaredLength();
+            float cosine = fabs(dot(direction, rec.normal) / direction.length());
+            return distanceSquared / (cosine * area);
+        }
+        else {
+            return 0.0;
+        }
+    }
+    virtual Vector3 random(const Vector3& origin) const {
+        Vector3 randomPoint = Vector3(x0 + Plutonium::getRandomNumber() * (x1 - x0), k, z0 + Plutonium::getRandomNumber() * (z1 - z0));
+        return randomPoint - origin;
+    }
+    std::shared_ptr<Material> material;
+    float x0, x1, z0, z1, k;
+};
+
+
+
+
+
 
 
 class BVHNode : public Shape {
