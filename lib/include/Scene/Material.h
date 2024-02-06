@@ -8,17 +8,12 @@
 #include "Shape.h"
 #include "Color.h"
 #include "Ray.h"
+#include "RecordTypes.h"
 
 
 class ProbabilityDensityFunction;
 
 
-struct ScatterRecord {
-    Ray specularRay;
-    bool isSpecular;
-    Color attenuation;
-    std::shared_ptr<ProbabilityDensityFunction> pdf;
-};
 
 
 
