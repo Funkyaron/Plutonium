@@ -16,21 +16,22 @@
 #include "ProbabilityDensityFunction.h"
 
 
-Color shadeRay(Ray r, std::shared_ptr<Shape> bvhRoot, int depth) {
-    HitRecord rec;
-    if(bvhRoot->hit(r, 0.001, std::numeric_limits<float>::max(), rec)) {
-        Ray scattered;
-        Color attenuation;
-        Color emitted = rec.material->emit();
-        float pdf;
-        if(depth < 50 && rec.material->scatter(r, rec, attenuation, scattered, pdf)) {
-            std::shared_ptr<Shape> lightShape = std::make_shared<xz_rect>(213, 343, 227, 332, 554, nullptr);
-            ShapeProbabilityDensityFunction lightpdf(lightShape, rec.p);
-            CosineProbabilityDensityFunction cospdf(rec.normal);
-            MixtureProbabilityDensityFunction mixpdf(&lightpdf, &cospdf);
-            scattered = Ray(rec.p, mixpdf.generate());
-            pdf = mixpdf.value(scattered.getDirection());
-            return emitted + attenuation * rec.material->scattering_pdf(r, rec, scattered) * shadeRay(scattered, bvhRoot, depth + 1) / pdf;
+Color shadeRay(Ray r, std::shared_ptr<Shape> bvhRoot, std::shared_ptr<Shape> lightShape, int depth) {
+    HitRecord hrec;
+    if(bvhRoot->hit(r, 0.001, std::numeric_limits<float>::max(), hrec)) {
+        ScatterRecord srec;
+        Color emitted = hrec.material->emit();
+        if(depth < 50 && hrec.material->scatter(r, hrec, srec)) {
+            if(srec.isSpecular) {
+                return srec.attenuation * shadeRay(srec.specularRay, bvhRoot, lightShape, depth + 1);
+            }
+            else {
+                auto lightpdf = std::make_shared<ShapeProbabilityDensityFunction>(lightShape, hrec.p);
+                auto mixpdf = std::make_shared<MixtureProbabilityDensityFunction>(lightpdf, srec.pdf);
+                Ray scattered(hrec.p, mixpdf->generate());
+                float pdfValue = mixpdf->value(scattered.getDirection());
+                return emitted + srec.attenuation * hrec.material->scatteringpdf(r, hrec, scattered) * shadeRay(scattered, bvhRoot, lightShape, depth + 1) / pdfValue;
+            }
         }
         else {
             return emitted;
@@ -51,14 +52,15 @@ namespace Plutonium {
         buf.init(cam->getPixelWidth(), cam->getPixelHeight());
 
         std::shared_ptr<Shape> bvhRoot = scene->getShapeGroup()->buildBVH(0);
+        std::shared_ptr<Shape> lightShape = std::make_shared<xz_rect>(213, 343, 227, 332, 554, nullptr);
 
-        int nsamples = 1000;
+        int nsamples = 300;
 
         buf.forEachConcurrent([&](int x, int y, Color& currentPixel) {
             Color col(0.0, 0.0, 0.0);
             for(int s = 0; s < nsamples; s++) {
                 Ray r = cam->getRayForPixel(x, y);
-                col += shadeRay(r, bvhRoot, 0);
+                col += shadeRay(r, bvhRoot, lightShape, 0);
             }
             currentPixel = col / float(nsamples);
         });

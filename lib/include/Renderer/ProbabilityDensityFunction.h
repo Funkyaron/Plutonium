@@ -57,15 +57,15 @@ private:
 class MixtureProbabilityDensityFunction : public ProbabilityDensityFunction {
 public:
 
-    MixtureProbabilityDensityFunction(ProbabilityDensityFunction * pdf1_, ProbabilityDensityFunction * pdf2_) : pdf1(pdf1_), pdf2(pdf2_) {}
+    MixtureProbabilityDensityFunction(std::shared_ptr<ProbabilityDensityFunction> pdf1_, std::shared_ptr<ProbabilityDensityFunction> pdf2_) : pdf1(pdf1_), pdf2(pdf2_) {}
 
     virtual float value(const Vector3& direction) const override;
     virtual Vector3 generate() const override;
 
 private:
 
-    ProbabilityDensityFunction * pdf1;
-    ProbabilityDensityFunction * pdf2;
+    std::shared_ptr<ProbabilityDensityFunction> pdf1;
+    std::shared_ptr<ProbabilityDensityFunction> pdf2;
 
 };
 
