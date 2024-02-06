@@ -116,8 +116,11 @@ Vector4 ShapeInstance::getCenter() {
 }
 
 
-std::shared_ptr<Shape> ShapeInstance::buildBVH(int axis) {
-    shape = shape->buildBVH(axis);
+std::shared_ptr<Shape> ShapeInstance::buildBVH(int axis, std::vector<BoundingBox>& importantBoxes, std::function<bool(std::shared_ptr<ShapeInstance>)> ruleset) {
+    shape = shape->buildBVH(axis, importantBoxes, ruleset);
+    if(ruleset(std::dynamic_pointer_cast<ShapeInstance>(shared_from_this())) == true) {
+        importantBoxes.push_back(this->createBoundingBox());
+    }
     return shared_from_this();
 }
 

@@ -16,19 +16,19 @@
 
 
 
-std::shared_ptr<BVHNode> BVHNode::create(std::vector<std::shared_ptr<Shape> > shapes, int axis) {
+std::shared_ptr<BVHNode> BVHNode::create(std::vector<std::shared_ptr<Shape> > shapes, int axis, std::vector<BoundingBox>& importantBoxes, std::function<bool(std::shared_ptr<ShapeInstance>)> ruleset) {
 
     std::shared_ptr<BVHNode> result = std::make_shared<BVHNode>();
 
     int n = shapes.size();
     if(n == 1) {
-        result->setLeft(shapes[0]->buildBVH((axis + 1) % 3));
+        result->setLeft(shapes[0]->buildBVH((axis + 1) % 3, importantBoxes, ruleset));
         result->setRight(nullptr);
         result->setBBox(shapes[0]->createBoundingBox());
     }
     else if(n == 2) {
-        result->setLeft(shapes[0]->buildBVH((axis + 1) % 3));
-        result->setRight(shapes[1]->buildBVH((axis + 1) % 3));
+        result->setLeft(shapes[0]->buildBVH((axis + 1) % 3, importantBoxes, ruleset));
+        result->setRight(shapes[1]->buildBVH((axis + 1) % 3, importantBoxes, ruleset));
         result->setBBox(BoundingBox(shapes[0]->createBoundingBox(), shapes[1]->createBoundingBox()));
     }
     else {
@@ -46,8 +46,8 @@ std::shared_ptr<BVHNode> BVHNode::create(std::vector<std::shared_ptr<Shape> > sh
         });
         std::vector<std::shared_ptr<Shape> > leftShapes = std::vector<std::shared_ptr<Shape> >(shapes.begin(), shapes.begin() + (n / 2));
         std::vector<std::shared_ptr<Shape> > rightShapes = std::vector<std::shared_ptr<Shape> >(shapes.begin() + (n / 2), shapes.end());
-        std::shared_ptr<BVHNode> leftBVHNode = BVHNode::create(leftShapes, (axis + 1) % 3);
-        std::shared_ptr<BVHNode> rightBVHNode = BVHNode::create(rightShapes, (axis + 1) % 3);
+        std::shared_ptr<BVHNode> leftBVHNode = BVHNode::create(leftShapes, (axis + 1) % 3, importantBoxes, ruleset);
+        std::shared_ptr<BVHNode> rightBVHNode = BVHNode::create(rightShapes, (axis + 1) % 3, importantBoxes, ruleset);
         result->setLeft(leftBVHNode);
         result->setRight(rightBVHNode);
         result->setBBox(BoundingBox(leftBVHNode->createBoundingBox(), rightBVHNode->createBoundingBox()));

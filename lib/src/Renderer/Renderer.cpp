@@ -51,8 +51,21 @@ namespace Plutonium {
         auto cam = scene->getCamera();
         buf.init(cam->getPixelWidth(), cam->getPixelHeight());
 
-        std::shared_ptr<Shape> bvhRoot = scene->getShapeGroup()->buildBVH(0);
-        std::vector<BoundingBox> importantBoxes = {BoundingBox(213.0, 343.0, 553.0, 555.0, 227.0, 332.0)};
+        std::vector<BoundingBox> importantBoxes = {};
+        auto ruleset = [](std::shared_ptr<ShapeInstance> inst) -> bool {
+            auto mat = inst->getMaterial();
+            if(std::dynamic_pointer_cast<DiffuseLight>(mat) != nullptr) {
+                return true;
+            }
+            else if(std::dynamic_pointer_cast<Metal>(mat) != nullptr) {
+                return true;
+            }
+            else {
+                return false;
+            }
+        };
+
+        std::shared_ptr<Shape> bvhRoot = scene->getShapeGroup()->buildBVH(0, importantBoxes, ruleset);
 
         int nsamples = 100;
 
