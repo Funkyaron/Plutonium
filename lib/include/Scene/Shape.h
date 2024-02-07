@@ -7,10 +7,12 @@
 
 #include <memory>
 #include <vector>
+#include <functional>
 
 #include "Vector3.h"
 #include "Vector4.h"
 #include "BoundingBox.h"
+#include "RecordTypes.h"
 
 class Ray;
 class Material;
@@ -18,12 +20,8 @@ class Transform;
 class Mesh;
 
 
-typedef struct {
-    float t;
-    Vector3 p;
-    Vector3 normal;
-    std::shared_ptr<Material> material;
-} HitRecord;
+
+class ShapeInstance;
 
 
 class Shape : public std::enable_shared_from_this<Shape> {
@@ -33,17 +31,18 @@ public:
     virtual BoundingBox createBoundingBox() = 0;
     virtual Vector4 getCenter() = 0;
 
-    virtual std::shared_ptr<Shape> buildBVH(int axis) { return shared_from_this(); }
+    virtual std::shared_ptr<Shape> buildBVH(int axis, std::vector<BoundingBox>& importantBoxes, std::function<bool(std::shared_ptr<ShapeInstance>)> ruleset) { return shared_from_this(); }
 
 private:
 
 };
 
 
+
 class BVHNode : public Shape {
 public:
 
-    static std::shared_ptr<BVHNode> create(std::vector<std::shared_ptr<Shape> > shapes, int axis);
+    static std::shared_ptr<BVHNode> create(std::vector<std::shared_ptr<Shape> > shapes, int axis, std::vector<BoundingBox>& importantBoxes, std::function<bool(std::shared_ptr<ShapeInstance>)> ruleset);
 
     virtual bool hit(Ray r, float t0, float t1, HitRecord& rec) const override;
     virtual BoundingBox createBoundingBox() override;
@@ -72,7 +71,7 @@ public:
     virtual BoundingBox createBoundingBox() override;
     virtual Vector4 getCenter() override;
 
-    virtual std::shared_ptr<Shape> buildBVH(int axis) override;
+    virtual std::shared_ptr<Shape> buildBVH(int axis, std::vector<BoundingBox>& importantBoxes, std::function<bool(std::shared_ptr<ShapeInstance>)> ruleset) override;
 
     void setShape(std::shared_ptr<Shape> shape_);
     std::shared_ptr<Shape> getShape() const;
@@ -105,7 +104,7 @@ public:
     virtual BoundingBox createBoundingBox() override;
     virtual Vector4 getCenter() override;
 
-    virtual std::shared_ptr<Shape> buildBVH(int axis) override;
+    virtual std::shared_ptr<Shape> buildBVH(int axis, std::vector<BoundingBox>& importantBoxes, std::function<bool(std::shared_ptr<ShapeInstance>)> ruleset) override;
 
 private:
 
@@ -169,7 +168,7 @@ public:
     virtual BoundingBox createBoundingBox() override;
     virtual Vector4 getCenter() override;
 
-    virtual std::shared_ptr<Shape> buildBVH(int axis) override;
+    virtual std::shared_ptr<Shape> buildBVH(int axis, std::vector<BoundingBox>& importantBoxes, std::function<bool(std::shared_ptr<ShapeInstance>)> ruleset) override;
 
 private:
 

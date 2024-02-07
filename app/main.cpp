@@ -361,12 +361,14 @@ std::shared_ptr<Scene> createCornellBox() {
     cam->setFocusDist(10.0);
 
     std::shared_ptr<Shape> cube = std::make_shared<MeshRef>(OBJImporter::importOBJ("../assets/Cube/Cube.obj"));
+    std::shared_ptr<Shape> sphere = std::make_shared<Sphere>();
     std::shared_ptr<Shape> dragon = std::make_shared<MeshRef>(OBJImporter::importOBJ("../assets/Dragon_1/Dragon_1.obj"));
 
     std::shared_ptr<Material> red = std::make_shared<Lambert>(Color(0.65, 0.05, 0.05));
     std::shared_ptr<Material> white = std::make_shared<Lambert>(Color(0.73, 0.73, 0.73));
     std::shared_ptr<Material> green = std::make_shared<Lambert>(Color(0.12, 0.45, 0.15));
     std::shared_ptr<Material> lightMat = std::make_shared<DiffuseLight>(Color(15.0, 15.0, 15.0));
+    std::shared_ptr<Material> metal = std::make_shared<Metal>(Color(0.8, 0.85, 0.88), 0.0);
     std::shared_ptr<Material> glass = std::make_shared<Dielectric>(1.5);
 
     std::shared_ptr<ShapeInstance> rightWall = std::make_shared<ShapeInstance>();
@@ -447,8 +449,16 @@ std::shared_ptr<Scene> createCornellBox() {
     box2->getTransform()->setLocationX(165.0 / 2.0 + 265.0);
     box2->getTransform()->setLocationY(330.0 / 2.0);
     box2->getTransform()->setLocationZ(165.0 / 2.0 + 295.0);
-    box2->setMaterial(white);
+    // box2->setMaterial(white);
+    box2->setMaterial(metal);
 
+    std::shared_ptr<ShapeInstance> glassBall = std::make_shared<ShapeInstance>();
+    glassBall->setShape(sphere);
+    glassBall->getTransform()->setUniformScale(90.0);
+    glassBall->getTransform()->setLocationX(190.0);
+    glassBall->getTransform()->setLocationY(90.0);
+    glassBall->getTransform()->setLocationZ(190.0);
+    glassBall->setMaterial(glass);
 
     std::shared_ptr<ShapeInstance> dragonInst = std::make_shared<ShapeInstance>();
     dragonInst->setShape(dragon);
@@ -460,6 +470,13 @@ std::shared_ptr<Scene> createCornellBox() {
     dragonInst->getTransform()->setUniformScale(2.0);
     dragonInst->setMaterial(glass);
 
+    std::shared_ptr<ShapeInstance> trollCube = std::make_shared<ShapeInstance>();
+    trollCube->setShape(cube);
+    trollCube->getTransform()->setLocationX(-100.0);
+    trollCube->getTransform()->setLocationY(200.0);
+    trollCube->getTransform()->setLocationZ(200.0);
+    trollCube->setMaterial(metal);
+
 
     std::shared_ptr<ShapeGroup> world = std::make_shared<ShapeGroup>();
     world->addShape(rightWall);
@@ -468,9 +485,11 @@ std::shared_ptr<Scene> createCornellBox() {
     world->addShape(floor);
     world->addShape(ceiling);
     world->addShape(light);
-    world->addShape(box1);
+    // world->addShape(box1);
     world->addShape(box2);
+    world->addShape(glassBall);
     // world->addShape(dragonInst);
+    // world->addShape(trollCube);
 
 
     result->setCamera(cam);

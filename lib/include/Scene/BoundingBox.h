@@ -5,6 +5,8 @@
 #define PLUTONIUM_BOUNDINGBOX_H
 
 
+#include "RecordTypes.h"
+
 class Ray;
 
 

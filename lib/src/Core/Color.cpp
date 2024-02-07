@@ -97,3 +97,12 @@ Color operator*(const Color& c, float t) {
 Color operator/(const Color& c, float t) {
     return Color(c.r() / t, c.g() / t, c.b() / t);
 }
+
+
+void Color::removeNaN() {
+    for(int i = 0; i < 3; i++) {
+        if(!(numbers[i] == numbers[i])) {
+            numbers[i] = 0.0;
+        }
+    }
+}

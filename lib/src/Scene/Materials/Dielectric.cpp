@@ -5,26 +5,24 @@
 #include "Utility.h"
 
 
-bool Dielectric::scatter(const Ray& rIn, const HitRecord& rec, Color& attenuation, Ray& scattered) const {
+bool Dielectric::scatter(const Ray& rIn, const HitRecord& hrec, ScatterRecord& srec) const {
     Vector3 outwardNormal;
-    Vector3 reflected = reflect(rIn.getDirection(), rec.normal);
+    Vector3 reflected = reflect(rIn.getDirection(), hrec.normal);
     float ni_over_nt;
-
-    attenuation = Color(1.0, 1.0, 1.0);
 
     Vector3 refracted;
     float reflectProb;
     float cosine;
 
-    if(dot(rIn.getDirection(), rec.normal) > 0) {
-        outwardNormal = -rec.normal;
+    if(dot(rIn.getDirection(), hrec.normal) > 0) {
+        outwardNormal = -hrec.normal;
         ni_over_nt = refractionIndex;
-        cosine = refractionIndex * dot(rIn.getDirection(), rec.normal) / rIn.getDirection().length();
+        cosine = refractionIndex * dot(rIn.getDirection(), hrec.normal) / rIn.getDirection().length();
     }
     else {
-        outwardNormal = rec.normal;
+        outwardNormal = hrec.normal;
         ni_over_nt = 1.0 / refractionIndex;
-        cosine = -dot(rIn.getDirection(), rec.normal) / rIn.getDirection().length();
+        cosine = -dot(rIn.getDirection(), hrec.normal) / rIn.getDirection().length();
     }
 
     if(refract(rIn.getDirection(), outwardNormal, ni_over_nt, refracted)) {
@@ -35,12 +33,20 @@ bool Dielectric::scatter(const Ray& rIn, const HitRecord& rec, Color& attenuatio
     }
 
     if(Plutonium::getRandomNumber() < reflectProb) {
-        scattered = Ray(rec.p, reflected);
+        srec.specularRay = Ray(hrec.p, reflected);
     }
     else {
-        scattered = Ray(rec.p, refracted);
+        srec.specularRay = Ray(hrec.p, refracted);
     }
+
+    srec.isSpecular = true;
+    srec.attenuation = Color(1.0, 1.0, 1.0);
+    srec.pdf = nullptr;
     return true;
+}
+
+float Dielectric::scatteringpdf(const Ray& rIn, const HitRecord& rec, const Ray& scattered) const {
+    return 0.0;
 }
 
 float Dielectric::schlick(float cosine, float refractionIndex) const {

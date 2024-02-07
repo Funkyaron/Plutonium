@@ -27,6 +27,8 @@ public:
     Color& operator*=(const float t);
     Color& operator/=(const float t);
 
+    void removeNaN();
+
 private:
 
     std::array<float, 3> numbers;

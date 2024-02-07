@@ -75,6 +75,6 @@ Vector4 ShapeGroup::getCenter() {
 }
 
 
-std::shared_ptr<Shape> ShapeGroup::buildBVH(int axis) {
-    return BVHNode::create(shapes, axis);
+std::shared_ptr<Shape> ShapeGroup::buildBVH(int axis, std::vector<BoundingBox>& importantBoxes, std::function<bool(std::shared_ptr<ShapeInstance>)> ruleset) {
+    return BVHNode::create(shapes, axis, importantBoxes, ruleset);
 }

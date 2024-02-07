@@ -123,7 +123,6 @@ bool BoundingBox::hit(Ray r, float t0, float t1) const {
 
 
 
-
 float BoundingBox::getxmin() const {
     return xmin;
 }

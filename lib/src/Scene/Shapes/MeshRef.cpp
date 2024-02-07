@@ -28,10 +28,10 @@ Vector4 MeshRef::getCenter() {
     return mesh->getCenter();
 }
 
-std::shared_ptr<Shape> MeshRef::buildBVH(int axis) {
+std::shared_ptr<Shape> MeshRef::buildBVH(int axis, std::vector<BoundingBox>& importantBoxes, std::function<bool(std::shared_ptr<ShapeInstance>)> ruleset) {
     std::vector<std::shared_ptr<Shape> > shapeCollection;
 
     mesh->makeShapeCollection(shapeCollection);
 
-    return BVHNode::create(shapeCollection, axis);
+    return BVHNode::create(shapeCollection, axis, importantBoxes, ruleset);
 }
