@@ -33,9 +33,6 @@ public:
 
     virtual std::shared_ptr<Shape> buildBVH(int axis, std::vector<BoundingBox>& importantBoxes, std::function<bool(std::shared_ptr<ShapeInstance>)> ruleset) { return shared_from_this(); }
 
-    virtual float pdfValue(const Vector3& origin, const Vector3& direction) const {return 0.0;}
-    virtual Vector3 random(const Vector3& origin) const {return Vector3(1.0, 0.0, 0.0);}
-
 private:
 
 };

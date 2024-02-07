@@ -470,6 +470,13 @@ std::shared_ptr<Scene> createCornellBox() {
     dragonInst->getTransform()->setUniformScale(2.0);
     dragonInst->setMaterial(glass);
 
+    std::shared_ptr<ShapeInstance> trollCube = std::make_shared<ShapeInstance>();
+    trollCube->setShape(cube);
+    trollCube->getTransform()->setLocationX(-100.0);
+    trollCube->getTransform()->setLocationY(200.0);
+    trollCube->getTransform()->setLocationZ(200.0);
+    trollCube->setMaterial(metal);
+
 
     std::shared_ptr<ShapeGroup> world = std::make_shared<ShapeGroup>();
     world->addShape(rightWall);
@@ -482,6 +489,7 @@ std::shared_ptr<Scene> createCornellBox() {
     world->addShape(box2);
     world->addShape(glassBall);
     // world->addShape(dragonInst);
+    // world->addShape(trollCube);
 
 
     result->setCamera(cam);

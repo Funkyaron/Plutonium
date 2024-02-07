@@ -39,22 +39,6 @@ private:
 };
 
 
-class ShapeProbabilityDensityFunction : public ProbabilityDensityFunction {
-public:
-
-    ShapeProbabilityDensityFunction(std::shared_ptr<Shape> shapePtr_, const Vector3& origin_) : shapePtr(shapePtr_), origin(origin_) {}
-
-    virtual float value(const Vector3& direction) const override;
-    virtual Vector3 generate() const override;
-
-private:
-
-    Vector3 origin;
-    std::shared_ptr<Shape> shapePtr;
-
-};
-
-
 class BoxProbabilityDensityFunction : public ProbabilityDensityFunction {
 public:
 

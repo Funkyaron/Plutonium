@@ -26,10 +26,16 @@ Color shadeRay(Ray r, std::shared_ptr<Shape> bvhRoot, const std::vector<Bounding
                 return srec.attenuation * shadeRay(srec.specularRay, bvhRoot, importantBoxes, depth + 1);
             }
             else {
-                auto boxpdf = std::make_shared<BoxListProbabilityDensityFunction>(importantBoxes, hrec.p);
-                auto mixpdf = std::make_shared<MixtureProbabilityDensityFunction>(boxpdf, srec.pdf);
-                Ray scattered(hrec.p, mixpdf->generate());
-                float pdfValue = mixpdf->value(scattered.getDirection());
+                std::shared_ptr<ProbabilityDensityFunction> pdf;
+                if(importantBoxes.empty()) {
+                    pdf = srec.pdf;
+                }
+                else {
+                    auto boxpdf = std::make_shared<BoxListProbabilityDensityFunction>(importantBoxes, hrec.p);
+                    pdf = std::make_shared<MixtureProbabilityDensityFunction>(boxpdf, srec.pdf);
+                }
+                Ray scattered(hrec.p, pdf->generate());
+                float pdfValue = pdf->value(scattered.getDirection());
                 return emitted + srec.attenuation * hrec.material->scatteringpdf(r, hrec, scattered) * shadeRay(scattered, bvhRoot, importantBoxes, depth + 1) / pdfValue;
             }
         }
@@ -73,7 +79,9 @@ namespace Plutonium {
             Color col(0.0, 0.0, 0.0);
             for(int s = 0; s < nsamples; s++) {
                 Ray r = cam->getRayForPixel(x, y);
-                col += shadeRay(r, bvhRoot, importantBoxes, 0);
+                Color currentColor = shadeRay(r, bvhRoot, importantBoxes, 0);
+                currentColor.removeNaN();
+                col += currentColor;
             }
             currentPixel = col / float(nsamples);
         });
@@ -83,7 +91,6 @@ namespace Plutonium {
         const std::chrono::duration<double, std::ratio<1, 1>> timeSeconds = end - start;
         const std::chrono::duration<double, std::ratio<60, 1>> timeMinutes = end - start;
 
-        // auto duration = std::chrono::duration_cast<std::chrono::seconds>(end - start);
         std::cout << "Render time: " << timeSeconds << " or " << timeMinutes << "\n";
     }
 }

@@ -36,7 +36,6 @@ add_library(PlutoniumCore SHARED
 
     lib/src/Renderer/Renderer.cpp
     lib/src/Renderer/CosineProbabilityDensityFunction.cpp
-    lib/src/Renderer/ShapeProbabilityDensityFunction.cpp
     lib/src/Renderer/MixtureProbabilityDensityFunction.cpp
     lib/src/Renderer/BoxProbabilityDensityFunction.cpp
     lib/src/Renderer/BoxListProbabilityDensityFunction.cpp

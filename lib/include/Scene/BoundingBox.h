@@ -18,7 +18,6 @@ public:
     BoundingBox(const BoundingBox& bbox1, const BoundingBox& bbox2);
 
     bool hit(Ray r, float t0, float t1) const;
-    // bool hit(Ray r, float t0, float t1, HitRecord hrec) const;
 
     float getxmin() const;
     float getxmax() const;
