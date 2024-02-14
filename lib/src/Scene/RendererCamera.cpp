@@ -4,13 +4,13 @@
 #include <numbers>
 
 
-#include "Camera.h"
+#include "RendererCamera.h"
 #include "Ray.h"
 #include "Utility.h"
 
 
 
-Camera::Camera() {
+RendererCamera::RendererCamera() {
     pixelWidth = 200;
     pixelHeight = 100;
 
@@ -25,51 +25,51 @@ Camera::Camera() {
     pixelPlaneCalculated = false;
 }
 
-void Camera::setResolution(int pixelWidth_, int pixelHeight_) {
+void RendererCamera::setResolution(int pixelWidth_, int pixelHeight_) {
     pixelWidth = pixelWidth_;
     pixelHeight = pixelHeight_;
     pixelPlaneCalculated = false;
 }
 
-void Camera::setLookFrom(Vector3 lookFrom_) {
+void RendererCamera::setLookFrom(Vector3 lookFrom_) {
     origin = lookFrom_;
     pixelPlaneCalculated = false;
 }
 
-void Camera::setLookAt(Vector3 lookAt_) {
+void RendererCamera::setLookAt(Vector3 lookAt_) {
     lookAt = lookAt_;
     pixelPlaneCalculated = false;
 }
 
-void Camera::setVerticalUp(Vector3 verticalUp_) {
+void RendererCamera::setVerticalUp(Vector3 verticalUp_) {
     verticalUp = verticalUp_;
     pixelPlaneCalculated = false;
 }
 
-void Camera::setVerticalFOV(float verticalFOV_) {
+void RendererCamera::setVerticalFOV(float verticalFOV_) {
     verticalFOV = verticalFOV_;
     pixelPlaneCalculated = false;
 }
 
-void Camera::setAperture(float aperture_) {
+void RendererCamera::setAperture(float aperture_) {
     aperture = aperture_;
     pixelPlaneCalculated = false;
 }
 
-void Camera::setFocusDist(float focusDist_) {
+void RendererCamera::setFocusDist(float focusDist_) {
     focusDist = focusDist_;
     pixelPlaneCalculated = false;
 }
 
-int Camera::getPixelWidth() const {
+int RendererCamera::getPixelWidth() const {
     return pixelWidth;
 }
 
-int Camera::getPixelHeight() const {
+int RendererCamera::getPixelHeight() const {
     return pixelHeight;
 }
 
-Ray Camera::getRayForPixel(int x, int y) {
+Ray RendererCamera::getRayForPixel(int x, int y) {
 
     if(pixelPlaneCalculated == false) {
         calculatePixelPlane();
@@ -87,7 +87,7 @@ Ray Camera::getRayForPixel(int x, int y) {
 }
 
 
-void Camera::calculatePixelPlane() {
+void RendererCamera::calculatePixelPlane() {
 
     lensRadius = aperture / 2.0;
 

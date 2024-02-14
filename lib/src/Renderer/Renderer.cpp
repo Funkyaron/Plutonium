@@ -7,7 +7,7 @@
 #include <iostream>
 
 #include "PixelBuffer.h"
-#include "Camera.h"
+#include "RendererCamera.h"
 #include "Color.h"
 #include "Ray.h"
 #include "Scene.h"

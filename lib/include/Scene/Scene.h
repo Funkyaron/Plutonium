@@ -7,22 +7,22 @@
 
 #include <memory>
 
-class Camera;
+class RendererCamera;
 class ShapeGroup;
 
 
 class Scene {
 public:
 
-    void setCamera(std::shared_ptr<Camera> newCam);
-    std::shared_ptr<Camera> getCamera();
+    void setCamera(std::shared_ptr<RendererCamera> newCam);
+    std::shared_ptr<RendererCamera> getCamera();
     
     void setShapeGroup(std::shared_ptr<ShapeGroup> group);
     std::shared_ptr<ShapeGroup> getShapeGroup();
 
 private:
 
-    std::shared_ptr<Camera> cam;
+    std::shared_ptr<RendererCamera> cam;
     std::shared_ptr<ShapeGroup> shapeGroup;
 
 };

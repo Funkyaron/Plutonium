@@ -3,8 +3,8 @@
 
 
 
-#ifndef PLUTONIUM_CAMERA_H
-#define PLUTONIUM_CAMERA_H
+#ifndef PLUTONIUM_RENDERERCAMERA_H
+#define PLUTONIUM_RENDERERCAMERA_H
 
 
 #include "Vector3.h"
@@ -13,10 +13,10 @@
 class Ray;
 
 
-class Camera {
+class RendererCamera {
 public:
 
-    Camera();
+    RendererCamera();
 
     void setResolution(int pixelWidth_, int pixelHeight_);
     void setLookFrom(Vector3 lookFrom_);

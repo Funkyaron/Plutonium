@@ -13,7 +13,7 @@
 #include "Color.h"
 #include "Renderer.h"
 #include "Scene.h"
-#include "Camera.h"
+#include "RendererCamera.h"
 #include "Shape.h"
 #include "Material.h"
 #include "Utility.h"
@@ -29,7 +29,7 @@
 // std::shared_ptr<Scene> createScene() {
 //     std::shared_ptr<Scene> result = std::make_shared<Scene>();
 
-//     std::shared_ptr<Camera> cam = std::make_shared<Camera>();
+//     std::shared_ptr<RendererCamera> cam = std::make_shared<RendererCamera>();
 //     cam->setResolution(200, 150);
 //     cam->setLookFrom(Vector3(8.0, 2.0, 3.0));
 //     cam->setLookAt(Vector3(0.0, 1.0, 0.0));
@@ -111,7 +111,7 @@
 // std::shared_ptr<Scene> createScene() {
 //     std::shared_ptr<Scene> result = std::make_shared<Scene>();
 
-//     std::shared_ptr<Camera> cam = std::make_shared<Camera>();
+//     std::shared_ptr<RendererCamera> cam = std::make_shared<RendererCamera>();
 //     cam->setLookFrom(Vector3(0.0, 0.0, 3.0));
 //     cam->setLookAt(Vector3(0.0, 0.0, 0.0));
 //     result->setCamera(cam);
@@ -145,7 +145,7 @@
 // std::shared_ptr<Scene> createScene() {
 //     std::shared_ptr<Scene> result = std::make_shared<Scene>();
 
-//     std::shared_ptr<Camera> cam = std::make_shared<Camera>();
+//     std::shared_ptr<RendererCamera> cam = std::make_shared<RendererCamera>();
 //     cam->setLookFrom(Vector3(0.0, 1.0, 3.0));
 //     cam->setLookAt(Vector3(0.0, 0.0, 0.0));
 //     result->setCamera(cam);
@@ -189,7 +189,7 @@
 // std::shared_ptr<Scene> createScene() {
 //     std::shared_ptr<Scene> result = std::make_shared<Scene>();
 
-//     std::shared_ptr<Camera> cam = std::make_shared<Camera>();
+//     std::shared_ptr<RendererCamera> cam = std::make_shared<RendererCamera>();
 //     cam->setResolution(400, 300);
 //     cam->setLookFrom(Vector3(2.0, 1.0, 4.0));
 //     cam->setLookAt(Vector3(0.0, 0.0, 0.0));
@@ -260,7 +260,7 @@
 // std::shared_ptr<Scene> createScene() {
 //     std::shared_ptr<Scene> result = std::make_shared<Scene>();
 
-//     std::shared_ptr<Camera> cam = std::make_shared<Camera>();
+//     std::shared_ptr<RendererCamera> cam = std::make_shared<RendererCamera>();
 //     cam->setResolution(400, 600);
 //     cam->setLookFrom(Vector3(7.0, 10.0, 7.0));
 //     cam->setLookAt(Vector3(0.0, 5.0, 0.0));
@@ -318,7 +318,7 @@
 std::shared_ptr<Scene> createScene() {
     std::shared_ptr<Scene> result = std::make_shared<Scene>();
 
-    std::shared_ptr<Camera> cam = std::make_shared<Camera>();
+    std::shared_ptr<RendererCamera> cam = std::make_shared<RendererCamera>();
     cam->setResolution(500, 300);
     cam->setLookFrom(Vector3(5.0, 10.0, 7.0));
     cam->setLookAt(Vector3(0.0, 0.0, 0.0));
@@ -352,7 +352,7 @@ std::shared_ptr<Scene> createScene() {
 std::shared_ptr<Scene> createCornellBox() {
     std::shared_ptr<Scene> result = std::make_shared<Scene>();
 
-    std::shared_ptr<Camera> cam = std::make_shared<Camera>();
+    std::shared_ptr<RendererCamera> cam = std::make_shared<RendererCamera>();
     cam->setResolution(300, 300);
     cam->setLookFrom(Vector3(278.0, 278.0, -800.0));
     cam->setLookAt(Vector3(278.0, 278.0, 0.0));

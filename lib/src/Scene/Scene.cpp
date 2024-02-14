@@ -3,15 +3,15 @@
 
 
 #include "Scene.h"
-#include "Camera.h"
+#include "RendererCamera.h"
 
 
 
-void Scene::setCamera(std::shared_ptr<Camera> newCam) {
+void Scene::setCamera(std::shared_ptr<RendererCamera> newCam) {
     cam = newCam;
 }
 
-std::shared_ptr<Camera> Scene::getCamera() {
+std::shared_ptr<RendererCamera> Scene::getCamera() {
     return cam;
 }
 

@@ -13,6 +13,7 @@ include_directories(lib/include/Core/Mesh)
 include_directories(lib/include/FileHandling)
 include_directories(lib/include/Renderer)
 include_directories(lib/include/Scene)
+include_directories(lib/include/SceneGraph)
 include_directories(lib/include/Utility)
 include_directories(lib-3rd-party/stb_image)
 
@@ -26,6 +27,7 @@ add_library(PlutoniumCore SHARED
 
     lib/src/Core/Color.cpp
     lib/src/Core/Matrix4.cpp
+    lib/src/Core/MatrixStack.cpp
     lib/src/Core/PixelBuffer.cpp
     lib/src/Core/Ray.cpp
     lib/src/Core/Transform.cpp
@@ -54,8 +56,16 @@ add_library(PlutoniumCore SHARED
     lib/src/Scene/Shapes/Triangle.cpp
 
     lib/src/Scene/BoundingBox.cpp
-    lib/src/Scene/Camera.cpp
+    lib/src/Scene/RendererCamera.cpp
     lib/src/Scene/Scene.cpp
+
+    lib/src/SceneGraph/CameraNode.cpp
+    lib/src/SceneGraph/EmptyNode.cpp
+    lib/src/SceneGraph/Geometry.cpp
+    lib/src/SceneGraph/GeometryNode.cpp
+    lib/src/SceneGraph/MeshGeometry.cpp
+    lib/src/SceneGraph/Primitive.cpp
+    lib/src/SceneGraph/SceneGraph.cpp
 
     lib/src/Utility/Utility.cpp
     lib/src/Utility/OrthoNormalBasis.cpp
